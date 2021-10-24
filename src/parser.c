@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/10/16 17:34:25 by                  ###   ########.fr       */
+/*   Updated: 2021/10/23 12:33:40 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	init_draw(t_data *data)
 	data->p_draw->C_red = -1;
 	data->p_draw->C_blue = -1;
 	data->p_draw->C_green = -1;
+	data->fl = 0;
 }
 
 static void	print_draw(t_data *data)
@@ -45,7 +46,7 @@ static void	print_draw(t_data *data)
 		printf("%s\n", data->arr[i++]);
 }
 
-static void	free_all(t_data *data)
+void	free_all(t_data *data)
 {
 	int	i;
 
@@ -95,28 +96,24 @@ static int	ft_parse_gnl(t_data *data, char **argv, char *line)
 	return (0);
 }
 
-int	ft_parser(char **argv)
+int	ft_parser(char **argv, t_data *data)
 {
-	t_data	data;
-	t_draw	draw;
-	t_coord	coord;
 	char	*line;
 
 	line = NULL;
-	data.p_draw = &draw;
-	data.p_coord = &coord;
-	init_draw(&data);
-	if (ft_parse_gnl(&data, argv, line))
+	init_draw(data);
+	if (ft_parse_gnl(data, argv, line))
 		return (1);
-	data.arr = (char **)malloc(sizeof(char *) * (data.height + 1));
-	data.arr[data.height] = NULL;
-	if (ft_parse_map_second(argv, &data) || ft_check_map_char(&data)
-		|| ft_check_map_border(&data))
+	data->arr = (char **)malloc(sizeof(char *) * (data->height + 1));
+	data->arr[data->height] = NULL;
+	if (ft_parse_map_second(argv, data) || ft_check_map_char(data)
+		|| ft_check_map_border(data) || data->direction == '\0'
+		|| data->p_coord->y == -1 || data->p_coord->x == -1 || data->fl != 1)
 	{
-		free_all(&data);
+		free_all(data);
 		return (1);
 	}
-	print_draw(&data);
-	free_all(&data);
+	print_draw(data);
+//	free_all(data);
 	return (0);
 }

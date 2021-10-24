@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:29:22 by                   #+#    #+#             */
-/*   Updated: 2021/10/16 17:29:22 by                  ###   ########.fr       */
+/*   Updated: 2021/10/23 12:20:09 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_check_map_char(t_data *data)
 			if (data->arr[i][j] == 'W' || data->arr[i][j] == 'E' ||
 			data->arr[i][j] == 'S' || data->arr[i][j] == 'N')
 			{
+				data->fl++;
 				data->direction = data->arr[i][j];
 				data->p_coord->x = j;
 				data->p_coord->y = i;

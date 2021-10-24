@@ -1,5 +1,6 @@
 SRCS	=	main.c get_next_line.c \
 			parser.c parse_map.c parse_before_map.c \
+			cub2d.c
 
 SRCS_DIR = src/
 

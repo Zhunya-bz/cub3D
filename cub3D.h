@@ -1,7 +1,9 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../libft/libft.h"
+# include "libft/libft.h"
+# include "mlx/mlx.h"
+# include "math.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -47,10 +49,11 @@ typedef struct s_data
 	int		width;
 	int		height;
 	char 	direction;
+	int 	fl;
 }	t_data;
 
 int		get_next_line(int fd, char **line);
-int		ft_parser(char **argv);
+int		ft_parser(char **argv, t_data *data);
 int		ft_parser_help(t_data *data, char *line);
 int		ft_color_ceiling(char *line, t_draw *draw);
 int		ft_color_floor(char *line, t_draw *draw);
@@ -58,5 +61,7 @@ int		ft_check_map_char(t_data *data);
 int		ft_parse_map_second(char **argv, t_data *data);
 void	ft_map_count(char *line, t_data *data);
 int		ft_check_map_border(t_data *data);
+void	free_all(t_data *data);
+void	ft_draw_cub2d(t_data *data);
 
 #endif //CUB3D_H
