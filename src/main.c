@@ -6,13 +6,13 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:30:04 by                   #+#    #+#             */
-/*   Updated: 2021/10/23 13:02:37 by                  ###   ########.fr       */
+/*   Updated: 2021/10/24 14:39:40 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-static void	print_draw(t_data *data)
+void	print_draw(t_data *data)
 {
 	int	i;
 
@@ -33,22 +33,34 @@ static void	print_draw(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	t_draw	draw;
-	t_coord	coord;
+//	t_draw	draw;
+//	t_coord	coord;
+//	t_addres addres1;
 
-	data.p_draw = &draw;
-	data.p_coord = &coord;
+//	data.p_draw= &draw;
+//	data.p_coord = &coord;
+//	data.p_addres = &addres1;
+	data.p_draw = malloc(sizeof(t_draw));
+	data.p_coord = malloc(sizeof(t_coord));
+	data.p_addres = malloc(sizeof(t_addres));
+	if (!data.p_draw || !data.p_addres || !data.p_coord)
+	{
+		ft_putendl_fd("Error malloc", 1);
+		return (1);
+	}
 	if (argc != 2)
 	{
 		ft_putendl_fd("Error", 1);
+		return (1);
 	}
 	else
 	{
 		if (ft_parser(argv, &data))
 		{
-			ft_putendl_fd("Error", 1);
+			ft_putendl_fd("Error2", 1);
+			return (1);
 		}
-		print_draw(&data);
+//		print_draw(&data);
 		ft_draw_cub2d(&data);
 	}
 	free_all(&data);

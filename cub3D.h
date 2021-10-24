@@ -33,7 +33,17 @@ typedef struct s_draw {
 	void	*img_S;
 	void	*img_W;
 	void	*img_E;
+	int 	F_color;
+	int 	C_color;
 }				t_draw;
+
+typedef struct	s_addres {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_addres;
 
 typedef struct s_coord
 {
@@ -43,13 +53,16 @@ typedef struct s_coord
 
 typedef struct s_data
 {
-	t_draw	*p_draw;
-	t_coord *p_coord;
-	char	**arr;
-	int		width;
-	int		height;
-	char 	direction;
-	int 	fl;
+	t_draw		*p_draw;
+	t_coord		*p_coord;
+	t_addres	*p_addres;
+	char		**arr;
+	int 		screen_width;
+	int 		screen_height;
+	int			width;
+	int			height;
+	char		direction;
+	int			fl;
 }	t_data;
 
 int		get_next_line(int fd, char **line);
@@ -63,5 +76,6 @@ void	ft_map_count(char *line, t_data *data);
 int		ft_check_map_border(t_data *data);
 void	free_all(t_data *data);
 void	ft_draw_cub2d(t_data *data);
+void	print_draw(t_data *data);
 
 #endif //CUB3D_H

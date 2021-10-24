@@ -6,12 +6,21 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/10/24 11:26:23 by                  ###   ########.fr       */
+/*   Updated: 2021/10/24 15:20:37 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3D.h"
+# include "../cub3D.h"
 # define SCALE 20.0
+
+void	my_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->p_addres->addr + (y * data->p_addres->line_length + x *
+			(data->p_addres->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
 void ft_draw_rec(t_data *data, int start_i, int start_j, int color)
 {
@@ -19,13 +28,13 @@ void ft_draw_rec(t_data *data, int start_i, int start_j, int color)
 	int l;
 
 	k = start_i;
-	while (k < SCALE + start_i)
+	while (k < SCALE + start_i) // по высоте-это у
 	{
 		l = start_j;
-		while (l < SCALE + start_j)
+		while (l < SCALE + start_j) // по ширине-это х
 		{
-			mlx_pixel_put(data->p_draw->mlx, data->p_draw->win,
-						  l, k, color);
+//			mlx_pixel_put(data->p_draw->mlx, data->p_draw->win, l, k, color);
+			my_pixel_put(data, l, k, color);
 			l++;
 		}
 		k++;
@@ -49,8 +58,12 @@ void move_player_up(t_data *data)
 	1][(int)(data->p_coord->x/SCALE)] == '1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0x000000);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
 	data->p_coord->y--;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
 }
 
 void move_player_down(t_data *data)
@@ -59,8 +72,12 @@ void move_player_down(t_data *data)
 	(data->p_coord->x/SCALE)] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
 	data->p_coord->y++;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
 }
 
 void move_player_right(t_data *data)
@@ -69,8 +86,12 @@ void move_player_right(t_data *data)
 	(data->p_coord->x/SCALE) + 1] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
 	data->p_coord->x++;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
 }
 
 void move_player_left(t_data *data)
@@ -79,8 +100,12 @@ void move_player_left(t_data *data)
 	ceil(data->p_coord->x/SCALE) - 1] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
 	data->p_coord->x--;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
 }
 
 int	key_hook(int keycode, t_data *data)
@@ -101,31 +126,54 @@ int	key_hook(int keycode, t_data *data)
 	return (0);
 }
 
-void ft_draw_cub2d(t_data *data)
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+void ft_draw_map(t_data *data)
 {
 	int i;
 	int j;
 
 	i = 0;
-	data->p_draw->mlx = mlx_init();
-	data->p_draw->win = mlx_new_window(data->p_draw->mlx, 1024, 680, "CUB3D!");
-	data->p_coord->x *= SCALE;
-	data->p_coord->y *= SCALE;
+	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
 	while (i < data->height)
 	{
 		j = 0;
 		while(data->arr[i][j])
 		{
-			ft_draw_rec(data, data->p_coord->y, data->p_coord->x,
-						0xFF0000);
 			if (data->arr[i][j] == '1')
 				ft_draw_rec(data, i * SCALE, j * SCALE, 0xFFFFFF);
 			j++;
 		}
 		i++;
 	}
-	mlx_hook(data->p_draw->win, 2, 0, key_hook, data);
-	mlx_hook(data->p_draw->win, 17, 0, close_win, data);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
+}
+
+void ft_draw_cub2d(t_data *data)
+{
+	data->p_draw->mlx = mlx_init();//инициализируем mlx
+	data->p_draw->win = mlx_new_window(data->p_draw->mlx, data->screen_width,
+									   data->screen_height, "CUB3D!");//создаем окно
+	data->p_addres->img = mlx_new_image(data->p_draw->mlx, data->screen_width,
+										data->screen_height);//создаем изображение с теми же параметрами
+	data->p_addres->addr = mlx_get_data_addr(data->p_addres->img,
+											 &data->p_addres->bits_per_pixel,
+											 &data->p_addres->line_length,
+											 &data->p_addres->endian);//получаем адресс изображения
+	data->p_coord->x *= SCALE;//берем масшабируем координаты
+	data->p_coord->y *= SCALE;//берем масшабируем координаты
+	print_draw(data);//печать хранимого в data
+	data->p_draw->F_color = create_trgb(0, data->p_draw->F_red, data->p_draw->F_green,
+				data->p_draw->F_blue);//преобразуем цвет пола в HEX
+	data->p_draw->C_color = create_trgb(0, data->p_draw->C_red,data->p_draw->C_green,
+										data->p_draw->C_blue);//преобразуем цвет неба в HEX
+	ft_draw_map(data); // рисовка самой 2д карты
+	mlx_hook(data->p_draw->win, 2, 0, key_hook, data);//нажатие на клавиши wasd
+	mlx_hook(data->p_draw->win, 17, 0, close_win, data);// нажатие на крестик окна
 //	mlx_loop_hook(data->p_draw->mlx, my_hook, data);
 	mlx_loop(data->p_draw->mlx);
 }

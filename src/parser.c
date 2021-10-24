@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/10/23 12:33:40 by                  ###   ########.fr       */
+/*   Updated: 2021/10/24 14:41:46 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	init_draw(t_data *data)
 {
 	data->width = 0;
 	data->height = 0;
+	data->screen_height = 680;
+	data->screen_width = 1024;
 	data->direction = '\0';
 	data->p_coord->x = -1;
 	data->p_coord->y = -1;
@@ -26,24 +28,6 @@ static void	init_draw(t_data *data)
 	data->p_draw->C_blue = -1;
 	data->p_draw->C_green = -1;
 	data->fl = 0;
-}
-
-static void	print_draw(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	printf("width %d\n", data->width);
-	printf("height %d\n", data->height);
-	printf("F_red %d\n", data->p_draw->F_red);
-	printf("F_green %d\n", data->p_draw->F_green);
-	printf("F_blue %d\n", data->p_draw->F_blue);
-	printf("C_red %d\n", data->p_draw->C_red);
-	printf("C_green %d\n", data->p_draw->C_green);
-	printf("C_blue %d\n", data->p_draw->C_blue);
-	printf("path_E %s\n", data->p_draw->path_E);
-	while (i < data->height)
-		printf("%s\n", data->arr[i++]);
 }
 
 void	free_all(t_data *data)
@@ -113,7 +97,7 @@ int	ft_parser(char **argv, t_data *data)
 		free_all(data);
 		return (1);
 	}
-	print_draw(data);
+//	print_draw(data);
 //	free_all(data);
 	return (0);
 }
