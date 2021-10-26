@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/10/26 11:22:25 by                  ###   ########.fr       */
+/*   Updated: 2021/10/26 11:34:37 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,51 +49,94 @@ int	close_win(t_data *data)
 	return (0);
 }
 
-void ft_draw_line(t_data *data, int start_i, int start_j, int color)
+void ft_draw_line_up(t_data *data, int start_i, int start_j, int color)
 {
 	int k;
 	int l;
 
 	k = start_i;
-	while (k > 0) // по высоте-это у
+	while (k > 0) // луч вверх
 	{
 		l = start_j;
-//		while (l < SCALE + start_j) // по ширине-это х
-//		{
 		my_pixel_put(data, l, k, color);
-//			l++;
-//		}
 		k--;
+	}
+}
+
+void ft_draw_line_down(t_data *data, int start_i, int start_j, int color)
+{
+	int k;
+	int l;
+
+	k = start_i;
+	while (k < data->height * SCALE) // луч вниз
+	{
+		l = start_j;
+		my_pixel_put(data, l, k, color);
+		k++;
+	}
+}
+
+void ft_draw_line_left(t_data *data, int start_i, int start_j, int color)
+{
+	int k;
+	int l;
+
+	l = start_j;
+	while (l > 0) // луч влево
+	{
+		k = start_i;
+		my_pixel_put(data, l, k, color);
+		l--;
+	}
+}
+
+void ft_draw_line_right(t_data *data, int start_i, int start_j, int color)
+{
+	int k;
+	int l;
+
+	l = start_j;
+	while (l < data->width * SCALE) // луч вправо
+	{
+		k = start_i;
+		my_pixel_put(data, l, k, color);
+		l++;
 	}
 }
 
 void ft_draw_ray(t_data *data, int color)
 {
 	if (data->direction == 'N')
-	{
-		ft_draw_line(data, data->p_coord->y + SCALE/2, data->p_coord->x +
+		ft_draw_line_up(data, data->p_coord->y + SCALE/2, data->p_coord->x +
 													   SCALE/2, color);
-	}
+	if (data->direction == 'S')
+		ft_draw_line_down(data, data->p_coord->y + SCALE/2, data->p_coord->x +
+		SCALE/2, color);
+	if (data->direction == 'W')
+		ft_draw_line_left(data, data->p_coord->y + SCALE/2, data->p_coord->x +
+		SCALE/2, color);
+	if (data->direction == 'E')
+		ft_draw_line_right(data, data->p_coord->y + SCALE/2, data->p_coord->x +
+		SCALE/2, color);
 }
 
 void move_player_up(t_data *data)
 {
-	printf("%c\n", data->arr[3][16]);
-	printf("y-1=%f xc=%d y=%d x=%d %c\n", ceil(data->p_coord->y/SCALE) - 1,
-		   (int)((ceil(data->p_coord->x + SCALE - 1)/SCALE)),
-		   data->p_coord->y, data->p_coord->x,  data->arr[(int)ceil
-		   (data->p_coord->y/SCALE) -1][(int)(((data->p_coord->x + SCALE - 1)
-		   /SCALE)
-		   )]);
+//	printf("%c\n", data->arr[3][16]);
+//	printf("y-1=%f xc=%d y=%d x=%d %c\n", ceil(data->p_coord->y/SCALE) - 1,
+//		   (int)((ceil(data->p_coord->x + SCALE - 1)/SCALE)),
+//		   data->p_coord->y, data->p_coord->x,  data->arr[(int)ceil
+//		   (data->p_coord->y/SCALE) -1][(int)(((data->p_coord->x + SCALE - 1)
+//		   /SCALE)
+//		   )]);
 	if (data->arr[(int)ceil(data->p_coord->y/SCALE) -1][(int)(
 			(ceil(data->p_coord->x + SCALE - 1)/SCALE))] == '1' || data->arr[
 					(int)ceil(data->p_coord->y/SCALE) -1][(int)(
 					(ceil(data->p_coord->x)/SCALE))] == '1')
-	{
-//		printf("odin\n");
 		return ;
-	}
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0x000000);
+	ft_draw_ray(data, 0x000000);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->y -= 2;
@@ -110,6 +153,7 @@ void move_player_down(t_data *data)
 	((data->p_coord->x + SCALE - 1)/SCALE)] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+	ft_draw_ray(data, 0x000000);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->y+=2;
