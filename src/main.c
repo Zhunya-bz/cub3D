@@ -33,13 +33,7 @@ void	print_draw(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-//	t_draw	draw;
-//	t_coord	coord;
-//	t_addres addres1;
 
-//	data.p_draw= &draw;
-//	data.p_coord = &coord;
-//	data.p_addres = &addres1;
 	data.p_draw = malloc(sizeof(t_draw));
 	data.p_coord = malloc(sizeof(t_coord));
 	data.p_addres = malloc(sizeof(t_addres));

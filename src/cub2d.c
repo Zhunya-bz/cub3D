@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/10/24 15:20:37 by                  ###   ########.fr       */
+/*   Updated: 2021/10/26 11:22:25 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,56 @@ int	close_win(t_data *data)
 	return (0);
 }
 
+void ft_draw_line(t_data *data, int start_i, int start_j, int color)
+{
+	int k;
+	int l;
+
+	k = start_i;
+	while (k > 0) // по высоте-это у
+	{
+		l = start_j;
+//		while (l < SCALE + start_j) // по ширине-это х
+//		{
+		my_pixel_put(data, l, k, color);
+//			l++;
+//		}
+		k--;
+	}
+}
+
+void ft_draw_ray(t_data *data, int color)
+{
+	if (data->direction == 'N')
+	{
+		ft_draw_line(data, data->p_coord->y + SCALE/2, data->p_coord->x +
+													   SCALE/2, color);
+	}
+}
+
 void move_player_up(t_data *data)
 {
-
-//	printf("%f %d %f\n", ceil(data->p_coord->y/SCALE), data->p_coord->y,
-//	   data->p_coord->y/sc);
-	if (data->arr[(int)ceil(data->p_coord->y/SCALE) -
-	1][(int)(data->p_coord->x/SCALE)] == '1')
+	printf("%c\n", data->arr[3][16]);
+	printf("y-1=%f xc=%d y=%d x=%d %c\n", ceil(data->p_coord->y/SCALE) - 1,
+		   (int)((ceil(data->p_coord->x + SCALE - 1)/SCALE)),
+		   data->p_coord->y, data->p_coord->x,  data->arr[(int)ceil
+		   (data->p_coord->y/SCALE) -1][(int)(((data->p_coord->x + SCALE - 1)
+		   /SCALE)
+		   )]);
+	if (data->arr[(int)ceil(data->p_coord->y/SCALE) -1][(int)(
+			(ceil(data->p_coord->x + SCALE - 1)/SCALE))] == '1' || data->arr[
+					(int)ceil(data->p_coord->y/SCALE) -1][(int)(
+					(ceil(data->p_coord->x)/SCALE))] == '1')
+	{
+//		printf("odin\n");
 		return ;
+	}
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0x000000);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
-	data->p_coord->y--;
+	data->p_coord->y -= 2;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+	ft_draw_ray(data, 0x00FF00);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
@@ -69,13 +106,15 @@ void move_player_up(t_data *data)
 void move_player_down(t_data *data)
 {
 	if (data->arr[(int)(data->p_coord->y/SCALE) + 1][(int)
-	(data->p_coord->x/SCALE)] =='1')
+	(data->p_coord->x/SCALE)] =='1' || data->arr[(int)(data->p_coord->y/SCALE) + 1][(int)
+	((data->p_coord->x + SCALE - 1)/SCALE)] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
-	data->p_coord->y++;
+	data->p_coord->y+=2;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+	ft_draw_ray(data, 0x00FF00);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
@@ -83,27 +122,35 @@ void move_player_down(t_data *data)
 void move_player_right(t_data *data)
 {
 	if (data->arr[(int)(data->p_coord->y/SCALE)][(int)
-	(data->p_coord->x/SCALE) + 1] =='1')
+	(data->p_coord->x/SCALE) + 1] =='1' || data->arr[(int)((data->p_coord->y +
+	SCALE - 1)/SCALE)][(int)(data->p_coord->x/SCALE) + 1] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+	ft_draw_ray(data, 0x000000);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
-	data->p_coord->x++;
+	data->p_coord->x+=2;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+	ft_draw_ray(data, 0x00FF00);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
+
 }
 
 void move_player_left(t_data *data)
 {
 	if (data->arr[(int)(data->p_coord->y/SCALE)][(int)
+	ceil(data->p_coord->x/SCALE) - 1] =='1' || data->arr[(int)
+	((data->p_coord->y+ SCALE -1)/SCALE)][(int)
 	ceil(data->p_coord->x/SCALE) - 1] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+	ft_draw_ray(data, 0x000000);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
-	data->p_coord->x--;
+	data->p_coord->x-=2;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+	ft_draw_ray(data, 0x000FF00);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
@@ -123,6 +170,7 @@ int	key_hook(int keycode, t_data *data)
 		move_player_right(data);
 	if (keycode == 0)
 		move_player_left(data);
+
 	return (0);
 }
 
@@ -172,6 +220,7 @@ void ft_draw_cub2d(t_data *data)
 	data->p_draw->C_color = create_trgb(0, data->p_draw->C_red,data->p_draw->C_green,
 										data->p_draw->C_blue);//преобразуем цвет неба в HEX
 	ft_draw_map(data); // рисовка самой 2д карты
+	ft_draw_ray(data, 0x00FF00);
 	mlx_hook(data->p_draw->win, 2, 0, key_hook, data);//нажатие на клавиши wasd
 	mlx_hook(data->p_draw->win, 17, 0, close_win, data);// нажатие на крестик окна
 //	mlx_loop_hook(data->p_draw->mlx, my_hook, data);
