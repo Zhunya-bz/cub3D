@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/10/31 15:16:11 by                  ###   ########.fr       */
+/*   Updated: 2021/10/31 15:37:36 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,12 +168,12 @@ void move_player_up(t_data *data)
 					(ceil(data->p_coord->x)/SCALE))] == '1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0x000000);
-	ft_draw_ray(data, 0x000000);
+	data->k = ft_draw_vector(data, 0x000000, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->y -= 2;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
-	ft_draw_ray(data, 0x00FF00);
+	data->k = ft_draw_vector(data, 0x00FF00, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
@@ -185,12 +185,12 @@ void move_player_down(t_data *data)
 	((data->p_coord->x + SCALE - 1)/SCALE)] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
-	ft_draw_ray(data, 0x000000);
+	data->k = ft_draw_vector(data, 0x000000, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->y+=2;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
-	ft_draw_ray(data, 0x00FF00);
+	data->k = ft_draw_vector(data, 0x00FF00, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
@@ -202,12 +202,12 @@ void move_player_right(t_data *data)
 	SCALE - 1)/SCALE)][(int)(data->p_coord->x/SCALE) + 1] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
-	ft_draw_ray(data, 0x000000);
+	data->k = ft_draw_vector(data, 0x000000, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->x+=2;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
-	ft_draw_ray(data, 0x00FF00);
+	data->k = ft_draw_vector(data, 0x00FF00, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 
@@ -221,12 +221,12 @@ void move_player_left(t_data *data)
 	ceil(data->p_coord->x/SCALE) - 1] =='1')
 		return ;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
-	ft_draw_ray(data, 0x000000);
+	data->k = ft_draw_vector(data, 0x000000, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->x-=2;
 	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
-	ft_draw_ray(data, 0x000FF00);
+	data->k = ft_draw_vector(data, 0x000FF00, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
