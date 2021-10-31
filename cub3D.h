@@ -49,6 +49,8 @@ typedef struct s_coord
 {
 	int 	x;
 	int 	y;
+	float	x_ray;
+	float	y_ray;
 }	t_coord;
 
 typedef struct s_data
@@ -63,6 +65,7 @@ typedef struct s_data
 	int			height;
 	char		direction;
 	int			fl;
+	float 		k;
 }	t_data;
 
 int		get_next_line(int fd, char **line);

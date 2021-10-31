@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/10/26 11:34:37 by                  ###   ########.fr       */
+/*   Updated: 2021/10/31 15:13:54 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,28 @@ int	close_win(t_data *data)
 	return (0);
 }
 
+float	ft_draw_vector(t_data *data, int color, float k)
+{
+	float i;
+
+	i = 1;
+	while (i <= 2)
+	{
+		data->p_coord->x_ray  = (float)(data->p_coord->x + SCALE/2);
+		data->p_coord->y_ray = (float)(data->p_coord->y + SCALE/2);
+		while ((data->arr[(int)(data->p_coord->y_ray/SCALE)][(int)
+			(data->p_coord->x_ray/SCALE)] != '1'))
+		{
+			data->p_coord->x_ray  += cos(k + i * M_PI/3);
+			data->p_coord->y_ray += sin(k + i * M_PI/3);
+			my_pixel_put(data, data->p_coord->x_ray, data->p_coord->y_ray,
+						 color);
+		}
+		i = i + 0.001; //количество лучей
+	}
+	return (k);
+}
+
 void ft_draw_line_up(t_data *data, int start_i, int start_j, int color)
 {
 	int k;
@@ -58,6 +80,8 @@ void ft_draw_line_up(t_data *data, int start_i, int start_j, int color)
 	while (k > 0) // луч вверх
 	{
 		l = start_j;
+		if (data->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
+			return ;
 		my_pixel_put(data, l, k, color);
 		k--;
 	}
@@ -72,6 +96,8 @@ void ft_draw_line_down(t_data *data, int start_i, int start_j, int color)
 	while (k < data->height * SCALE) // луч вниз
 	{
 		l = start_j;
+		if (data->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
+			return ;
 		my_pixel_put(data, l, k, color);
 		k++;
 	}
@@ -86,6 +112,8 @@ void ft_draw_line_left(t_data *data, int start_i, int start_j, int color)
 	while (l > 0) // луч влево
 	{
 		k = start_i;
+		if (data->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
+			return ;
 		my_pixel_put(data, l, k, color);
 		l--;
 	}
@@ -100,6 +128,8 @@ void ft_draw_line_right(t_data *data, int start_i, int start_j, int color)
 	while (l < data->width * SCALE) // луч вправо
 	{
 		k = start_i;
+		if (data->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
+			return ;
 		my_pixel_put(data, l, k, color);
 		l++;
 	}
@@ -108,17 +138,19 @@ void ft_draw_line_right(t_data *data, int start_i, int start_j, int color)
 void ft_draw_ray(t_data *data, int color)
 {
 	if (data->direction == 'N')
-		ft_draw_line_up(data, data->p_coord->y + SCALE/2, data->p_coord->x +
-													   SCALE/2, color);
+		data->k = ft_draw_vector(data, color, data->k * 2);
+//		ft_draw_line_up(data, data->p_coord->y + SCALE/2, data->p_coord->x +
+//													   SCALE/2, color);
 	if (data->direction == 'S')
-		ft_draw_line_down(data, data->p_coord->y + SCALE/2, data->p_coord->x +
-		SCALE/2, color);
+		data->k = ft_draw_vector(data, color, data->k * 0);
+//		ft_draw_line_down(data, data->p_coord->y + SCALE/2, data->p_coord->x +
+//		SCALE/2, color);
 	if (data->direction == 'W')
-		ft_draw_line_left(data, data->p_coord->y + SCALE/2, data->p_coord->x +
-		SCALE/2, color);
+		data->k = ft_draw_vector(data, color, data->k);
+//		ft_draw_line_left(data, data->p_coord->y + SCALE/2, data->p_coord->x +
+//		SCALE/2, color);
 	if (data->direction == 'E')
-		ft_draw_line_right(data, data->p_coord->y + SCALE/2, data->p_coord->x +
-		SCALE/2, color);
+		data->k = ft_draw_vector(data, color, 3 * data->k);
 }
 
 void move_player_up(t_data *data)
@@ -199,6 +231,28 @@ void move_player_left(t_data *data)
 							data->p_addres->img, 0, 0);
 }
 
+void ft_arrow_right(t_data *data)
+{
+	data->k = ft_draw_vector(data, 0x000000, data->k);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
+	data->k = data->k + M_PI/50;
+	data->k = ft_draw_vector(data, 0xFFFF00, data->k);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
+}
+
+void ft_arrow_left(t_data *data)
+{
+	ft_draw_vector(data, 0x000000, data->k);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
+	data->k = data->k - M_PI/50;
+	ft_draw_vector(data, 0xFFFF00, data->k);
+	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
+							data->p_addres->img, 0, 0);
+}
+
 int	key_hook(int keycode, t_data *data)
 {
 	if (keycode == 53)
@@ -214,7 +268,10 @@ int	key_hook(int keycode, t_data *data)
 		move_player_right(data);
 	if (keycode == 0)
 		move_player_left(data);
-
+	if (keycode == 124)
+		ft_arrow_right(data);
+	if (keycode == 123)
+		ft_arrow_left(data);
 	return (0);
 }
 
@@ -245,6 +302,14 @@ void ft_draw_map(t_data *data)
 							data->p_addres->img, 0, 0);
 }
 
+int array_hook(int keycode, t_data *data)
+{
+	if (keycode == 124)
+		ft_arrow_right(data);
+
+	return (0);
+}
+
 void ft_draw_cub2d(t_data *data)
 {
 	data->p_draw->mlx = mlx_init();//инициализируем mlx
@@ -258,14 +323,19 @@ void ft_draw_cub2d(t_data *data)
 											 &data->p_addres->endian);//получаем адресс изображения
 	data->p_coord->x *= SCALE;//берем масшабируем координаты
 	data->p_coord->y *= SCALE;//берем масшабируем координаты
+	data->p_coord->x_ray = (float)(data->p_coord->x + SCALE/2);
+	data->p_coord->y_ray = (float)(data->p_coord->y + SCALE/2);
 	print_draw(data);//печать хранимого в data
 	data->p_draw->F_color = create_trgb(0, data->p_draw->F_red, data->p_draw->F_green,
 				data->p_draw->F_blue);//преобразуем цвет пола в HEX
 	data->p_draw->C_color = create_trgb(0, data->p_draw->C_red,data->p_draw->C_green,
 										data->p_draw->C_blue);//преобразуем цвет неба в HEX
 	ft_draw_map(data); // рисовка самой 2д карты
+	data->k = M_PI_2; // угол на который нужно повернуть лучи на начальном этапе
 	ft_draw_ray(data, 0x00FF00);
 	mlx_hook(data->p_draw->win, 2, 0, key_hook, data);//нажатие на клавиши wasd
+//	mlx_hook(data->p_draw->win, 2, 0, array_hook, data);//нажатие на клавиши
+//	// стрелочек
 	mlx_hook(data->p_draw->win, 17, 0, close_win, data);// нажатие на крестик окна
 //	mlx_loop_hook(data->p_draw->mlx, my_hook, data);
 	mlx_loop(data->p_draw->mlx);
