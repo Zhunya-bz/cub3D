@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/10/24 14:41:46 by                  ###   ########.fr       */
+/*   Updated: 2021/10/31 16:56:08 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ static void	init_draw(t_data *data)
 	data->p_draw->C_red = -1;
 	data->p_draw->C_blue = -1;
 	data->p_draw->C_green = -1;
+	data->p_draw->path_E = NULL;
+	data->p_draw->path_W = NULL;
+	data->p_draw->path_N = NULL;
+	data->p_draw->path_S = NULL;
 	data->fl = 0;
+	data->fl_par = 0;
 }
 
 void	free_all(t_data *data)
@@ -79,6 +84,23 @@ static int	ft_parse_gnl(t_data *data, char **argv, char *line)
 	ft_free_close(line, fd);
 	return (0);
 }
+int ft_check_cub(char **argv)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (argv[1][i] != '.')
+		i++;
+	str = ft_strdup(&argv[1][i]);
+	if (ft_strcmp(str, ".cub"))
+	{
+		free(str);
+		return (1);
+	}
+	free(str);
+	return (0);
+}
 
 int	ft_parser(char **argv, t_data *data)
 {
@@ -86,7 +108,7 @@ int	ft_parser(char **argv, t_data *data)
 
 	line = NULL;
 	init_draw(data);
-	if (ft_parse_gnl(data, argv, line))
+	if (ft_check_cub(argv) || ft_parse_gnl(data, argv, line))
 		return (1);
 	data->arr = (char **)malloc(sizeof(char *) * (data->height + 1));
 	data->arr[data->height] = NULL;

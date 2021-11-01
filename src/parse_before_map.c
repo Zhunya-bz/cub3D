@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:28:57 by                   #+#    #+#             */
-/*   Updated: 2021/10/16 17:28:57 by                  ###   ########.fr       */
+/*   Updated: 2021/10/31 16:42:38 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,56 @@ int	ft_color_ceiling(char *line, t_draw *draw)
 	return (0);
 }
 
-static void	ft_path(char **str, char *line)
+static int	ft_path(char **str, char *line)
 {
 	int	i;
 
 	i = 2;
 	while (line[i] == ' ')
 		i++;
-	*str = ft_strdup(&line[i]);
+	if (!(*str))
+		*str = ft_strdup(&line[i]);
+	else
+		return (1);
+	return (0);
+}
+
+int ft_parser_direction(t_data *data, char *line)
+{
+	if (line[0] == 'N' && line[1] == 'O')
+		if (ft_path(&data->p_draw->path_N, line))
+			return (1);
+		else
+			return (2);
+	else if (line[0] == 'S' && line[1] == 'O')
+		if (ft_path(&data->p_draw->path_S, line))
+			return (1);
+		else
+			return (2);
+	else if (line[0] == 'W' && line[1] == 'E')
+		if (ft_path(&data->p_draw->path_W, line))
+			return (1);
+		else
+			return (2);
+	else if (line[0] == 'E' && line[1] == 'A')
+		if (ft_path(&data->p_draw->path_E, line))
+			return (1);
+		else
+			return (2);
+	else
+		return (0);
 }
 
 int	ft_parser_help(t_data *data, char *line)
 {
-	if (line[0] == 'N' && line[1] == 'O')
-		ft_path(&data->p_draw->path_N, line);
-	else if (line[0] == 'S' && line[1] == 'O')
-		ft_path(&data->p_draw->path_S, line);
-	else if (line[0] == 'W' && line[1] == 'E')
-		ft_path(&data->p_draw->path_W, line);
-	else if (line[0] == 'E' && line[1] == 'A')
-		ft_path(&data->p_draw->path_E, line);
-	else if (ft_strcmp(line, "") == 0)
+	int c;
+
+	c = ft_parser_direction(data, line);
+	if (c == 1)
+		return (1);
+	else if (c == 2)
+		return (0);
+	if (ft_strcmp(line, "") == 0)
 		return (0);
 	else if (line[0] == 'F')
 	{

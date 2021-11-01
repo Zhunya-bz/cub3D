@@ -47,8 +47,8 @@ typedef struct	s_addres {
 
 typedef struct s_coord
 {
-	int 	x;
-	int 	y;
+	float 	x;
+	float 	y;
 	float	x_ray;
 	float	y_ray;
 }	t_coord;
@@ -65,6 +65,7 @@ typedef struct s_data
 	int			height;
 	char		direction;
 	int			fl;
+	int 		fl_par;
 	float 		k;
 }	t_data;
 
@@ -80,5 +81,6 @@ int		ft_check_map_border(t_data *data);
 void	free_all(t_data *data);
 void	ft_draw_cub2d(t_data *data);
 void	print_draw(t_data *data);
+int		ft_parser_direction(t_data *data, char *line);
 
 #endif //CUB3D_H

@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/10/31 15:37:36 by                  ###   ########.fr       */
+/*   Updated: 2021/11/01 13:20:45 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,17 +162,20 @@ void move_player_up(t_data *data)
 //		   (data->p_coord->y/SCALE) -1][(int)(((data->p_coord->x + SCALE - 1)
 //		   /SCALE)
 //		   )]);
-	if (data->arr[(int)ceil(data->p_coord->y/SCALE) -1][(int)(
-			(ceil(data->p_coord->x + SCALE - 1)/SCALE))] == '1' || data->arr[
-					(int)ceil(data->p_coord->y/SCALE) -1][(int)(
-					(ceil(data->p_coord->x)/SCALE))] == '1')
+//	if (data->arr[(int)ceil(data->p_coord->y/SCALE) -1][(int)(
+//			(ceil(data->p_coord->x + SCALE - 1)/SCALE))] == '1' || data->arr[
+//					(int)ceil(data->p_coord->y/SCALE) -1][(int)(
+//					(ceil(data->p_coord->x)/SCALE))] == '1')
+//		return ;
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0x000000);
+	if (data->arr[(int)((data->p_coord->y + SCALE/2)/SCALE)][(int)
+		((data->p_coord->x + SCALE/2)/SCALE)] == '1')
 		return ;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0x000000);
 	data->k = ft_draw_vector(data, 0x000000, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->y -= 2;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
 	data->k = ft_draw_vector(data, 0x00FF00, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
@@ -180,16 +183,19 @@ void move_player_up(t_data *data)
 
 void move_player_down(t_data *data)
 {
-	if (data->arr[(int)(data->p_coord->y/SCALE) + 1][(int)
-	(data->p_coord->x/SCALE)] =='1' || data->arr[(int)(data->p_coord->y/SCALE) + 1][(int)
-	((data->p_coord->x + SCALE - 1)/SCALE)] =='1')
+//	if (data->arr[(int)(data->p_coord->y/SCALE) + 1][(int)
+//	(data->p_coord->x/SCALE)] =='1' || data->arr[(int)(data->p_coord->y/SCALE) + 1][(int)
+//	((data->p_coord->x + SCALE - 1)/SCALE)] =='1')
+//		return ;
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+	if (data->arr[(int)((data->p_coord->y + SCALE/2 - 1)/SCALE)][(int)
+	((data->p_coord->x + SCALE/2 - 1)/SCALE)] == '1')
 		return ;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
 	data->k = ft_draw_vector(data, 0x000000, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->y+=2;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
 	data->k = ft_draw_vector(data, 0x00FF00, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
@@ -197,16 +203,19 @@ void move_player_down(t_data *data)
 
 void move_player_right(t_data *data)
 {
-	if (data->arr[(int)(data->p_coord->y/SCALE)][(int)
-	(data->p_coord->x/SCALE) + 1] =='1' || data->arr[(int)((data->p_coord->y +
-	SCALE - 1)/SCALE)][(int)(data->p_coord->x/SCALE) + 1] =='1')
+//	if (data->arr[(int)(data->p_coord->y/SCALE)][(int)
+//	(data->p_coord->x/SCALE) + 1] =='1' || data->arr[(int)((data->p_coord->y +
+//	SCALE - 1)/SCALE)][(int)(data->p_coord->x/SCALE) + 1] =='1')
+//		return ;
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+	if (data->arr[(int)((data->p_coord->y + SCALE/2 - 1)/SCALE)][(int)
+	((data->p_coord->x + SCALE/2 - 1)/SCALE)] == '1')
 		return ;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
 	data->k = ft_draw_vector(data, 0x000000, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->x+=2;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
 	data->k = ft_draw_vector(data, 0x00FF00, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
@@ -215,17 +224,26 @@ void move_player_right(t_data *data)
 
 void move_player_left(t_data *data)
 {
-	if (data->arr[(int)(data->p_coord->y/SCALE)][(int)
-	ceil(data->p_coord->x/SCALE) - 1] =='1' || data->arr[(int)
-	((data->p_coord->y+ SCALE -1)/SCALE)][(int)
-	ceil(data->p_coord->x/SCALE) - 1] =='1')
+//	if (data->arr[(int)(data->p_coord->y/SCALE)][(int)
+//	ceil(data->p_coord->x/SCALE) - 1] =='1' || data->arr[(int)
+//	((data->p_coord->y+ SCALE -1)/SCALE)][(int)
+//	ceil(data->p_coord->x/SCALE) - 1] =='1')
+//		return ;
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
+//printf("y=%f x=%f %d %d %f %f\n", data->p_coord->y + SCALE/2 - 1,
+//	   data->p_coord->x + SCALE/2 - 1, (int)(ceil
+//(data->p_coord->y + SCALE/2 - 1)/SCALE),(int)
+//	(ceil(data->p_coord->x + SCALE/2 - 1)/SCALE), (ceil(data->p_coord->y +
+//	SCALE/2 - 1)/SCALE),
+//	(ceil(data->p_coord->x + SCALE/2 - 1)/SCALE));
+	if (data->arr[(int)((data->p_coord->y + SCALE/2 - 1)/SCALE)][(int)
+	((data->p_coord->x + SCALE/2 - 1)/SCALE)] == '1')
 		return ;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x ,0x000000);
 	data->k = ft_draw_vector(data, 0x000000, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 	data->p_coord->x-=2;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
 	data->k = ft_draw_vector(data, 0x000FF00, data->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
@@ -286,7 +304,7 @@ void ft_draw_map(t_data *data)
 	int j;
 
 	i = 0;
-	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
+//	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
 	while (i < data->height)
 	{
 		j = 0;
