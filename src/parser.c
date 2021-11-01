@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/10/31 16:56:08 by                  ###   ########.fr       */
+/*   Updated: 2021/11/01 16:15:56 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,9 @@ int	ft_parser(char **argv, t_data *data)
 	data->arr[data->height] = NULL;
 	if (ft_parse_map_second(argv, data) || ft_check_map_char(data)
 		|| ft_check_map_border(data) || data->direction == '\0'
-		|| data->p_coord->y == -1 || data->p_coord->x == -1 || data->fl != 1)
+		|| data->p_coord->y == -1 || data->p_coord->x == -1)
 	{
+		print_draw(data);
 		free_all(data);
 		return (1);
 	}

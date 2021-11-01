@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:30:04 by                   #+#    #+#             */
-/*   Updated: 2021/10/31 16:53:43 by                  ###   ########.fr       */
+/*   Updated: 2021/11/01 14:41:19 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	print_draw(t_data *data)
 	printf("C_green %d\n", data->p_draw->C_green);
 	printf("C_blue %d\n", data->p_draw->C_blue);
 	printf("path_E %s\n", data->p_draw->path_E);
+	printf("y=%f\n", data->p_coord->y);
 	while (i < data->height)
 		printf("%s\n", data->arr[i++]);
 }
@@ -54,10 +55,10 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("Error2", 1);
 			return (1);
 		}
-//		print_draw(&data);
+		//		print_draw(&data);
 		ft_draw_cub2d(&data);
 	}
 	free_all(&data);
-//	while (1);
+	//	while (1);
 	return (0);
 }
