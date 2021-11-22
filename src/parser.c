@@ -14,11 +14,11 @@
 
 static void	init_draw(t_data *data)
 {
-	data->width = 0;
-	data->height = 0;
-	data->screen_height = 720;
-	data->screen_width = 1280;
-	data->direction = '\0';
+	data->p_info->width = 0;
+	data->p_info->height = 0;
+	data->p_info->screen_height = 720;
+	data->p_info->screen_width = 1280;
+	data->p_info->direction = '\0';
 	data->p_coord->x = -1;
 	data->p_coord->y = -1;
 	data->p_draw->F_red = -1;
@@ -31,9 +31,9 @@ static void	init_draw(t_data *data)
 	data->p_draw->path_W = NULL;
 	data->p_draw->path_N = NULL;
 	data->p_draw->path_S = NULL;
-	data->dist = 0;
-	data->pov = 0;
-	data->flag = 0;
+	data->p_info->dist = 0;
+	data->p_info->pov = 0;
+	data->p_info->flag = 0;
 }
 
 void	free_all(t_data *data)
@@ -41,12 +41,12 @@ void	free_all(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->height)
+	while (i < data->p_info->height)
 	{
-		free(data->arr[i]);
+		free(data->p_info->arr[i]);
 		i++;
 	}
-	free(data->arr);
+	free(data->p_info->arr);
 	free(data->p_draw->path_E);
 	free(data->p_draw->path_W);
 	free(data->p_draw->path_S);
@@ -112,13 +112,13 @@ int	ft_parser(char **argv, t_data *data)
 	init_draw(data);
 	if (ft_check_cub(argv) || ft_parse_gnl(data, argv, line))
 		return (1);
-	data->arr = (char **)malloc(sizeof(char *) * (data->height + 1));
-	data->arr[data->height] = NULL;
+	data->p_info->arr = (char **)malloc(sizeof(char *) * (data->p_info->height +1));
+	data->p_info->arr[data->p_info->height] = NULL;
 	if (ft_parse_map_second(argv, data) || ft_check_map_char(data)
-		|| ft_check_map_border(data) || data->direction == '\0'
+		|| ft_check_map_border(data) || data->p_info->direction == '\0'
 		|| data->p_coord->y == -1 || data->p_coord->x == -1)
 	{
-		print_draw(data); // delete
+//		print_draw(data); // delete
 		free_all(data);
 		return (1);
 	}

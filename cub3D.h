@@ -19,10 +19,6 @@ typedef struct s_draw {
 	char	*path_S;
 	char	*path_W;
 	char	*path_E;
-//	int		img_w;
-//	int		img_h;
-//	int		arr_h;
-//	int		arr_w;
 	int 	F_red;
 	int 	F_green;
 	int 	F_blue;
@@ -53,12 +49,8 @@ typedef struct s_coord
 	float	y_ray;
 }	t_coord;
 
-typedef struct s_data
+typedef struct s_info
 {
-	t_draw		*p_draw;
-	t_coord		*p_coord;
-	t_addres	*p_addres;
-//	float 		i;
 	int 		flag;
 	char		**arr;
 	int 		screen_width;
@@ -69,6 +61,14 @@ typedef struct s_data
 	float 		k;
 	float		pov; // point of view-точка зрения
 	float 		dist;
+}	t_info;
+
+typedef struct s_data
+{
+	t_draw		*p_draw;
+	t_coord		*p_coord;
+	t_addres	*p_addres;
+	t_info		*p_info;
 }	t_data;
 
 /* parser */

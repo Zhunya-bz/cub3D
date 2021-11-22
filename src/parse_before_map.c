@@ -101,7 +101,6 @@ int	ft_parser_help(t_data *data, char *line)
 	int c;
 
 	c = ft_parser_direction(data, line);
-//	printf("%d\n", c);
 	if (c == 1)
 		return (1);
 	else if (c == 2)

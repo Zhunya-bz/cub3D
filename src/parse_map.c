@@ -18,23 +18,25 @@ int	ft_check_map_char(t_data *data)
 	int	j;
 
 	i = 0;
-	while (data->arr[i])
+	while (data->p_info->arr[i])
 	{
 		j = 0;
-		while (data->arr[i][j])
+		while (data->p_info->arr[i][j])
 		{
-			if (data->arr[i][j] == 'W' || data->arr[i][j] == 'E' ||
-			data->arr[i][j] == 'S' || data->arr[i][j] == 'N')
+			if (data->p_info->arr[i][j] == 'W' || data->p_info->arr[i][j] ==
+			'E' ||
+			data->p_info->arr[i][j] == 'S' || data->p_info->arr[i][j] == 'N')
 			{
-				if (data->flag == 1)
+				if (data->p_info->flag == 1)
 					return (1);
-				data->direction = data->arr[i][j];
+				data->p_info->direction = data->p_info->arr[i][j];
 				data->p_coord->x = j;
 				data->p_coord->y = i;
-				data->flag = 1;
+				data->p_info->flag = 1;
 			}
-			else if (!(data->arr[i][j] == '1' || data->arr[i][j] == '0' ||
-			data->arr[i][j] == ' '))
+			else if (!(data->p_info->arr[i][j] == '1' || data->p_info->arr[i][j]
+			== '0' ||
+			data->p_info->arr[i][j] == ' '))
 				return (1);
 			j++;
 		}
@@ -57,12 +59,12 @@ int	ft_parse_map_second(char **argv, t_data *data)
 	while ((get_next_line(fd, &line)))
 	{
 		if (line[0] == ' ' || ft_isdigit(line[0]))
-			data->arr[i++] = line;
+			data->p_info->arr[i++] = line;
 		else
 			free(line);
 	}
 	if (line[0] == ' ' || ft_isdigit(line[0]))
-		data->arr[i++] = line;
+		data->p_info->arr[i++] = line;
 	else
 		free(line);
 	close(fd);
@@ -74,31 +76,46 @@ void	ft_map_count(char *line, t_data *data)
 	int	count;
 
 	count = ft_strlen(line);
-	if (count > data->width)
-		data->width = count;
-	data->height++;
+	if (count > data->p_info->width)
+		data->p_info->width = count;
+	data->p_info->height++;
 }
 
 static int	ft_check_map_border_inside(t_data *data, int *i, int *j)
 {
-	if (data->arr[*i][*j - 1] == ' ') //предыдущий в строке
+	if (data->p_info->arr[*i][*j - 1] == ' ') //предыдущий в строке
 		return (1);
-	if (data->arr[*i][*j + 1] && data->arr[*i][*j + 1] == ' ') // след в строке
+	if (data->p_info->arr[*i][*j + 1] && data->p_info->arr[*i][*j + 1] == ' ')
+		// след в
+		// строке
 		return (1);
-	if (*i - 1 < 0 || *i + 1 >= data->height || *j - 1 < 0 || *j + 1
-		>= ft_strlen(data->arr[*i]))
+	if (*i - 1 < 0 || *i + 1 >= data->p_info->height || *j - 1 < 0 || *j + 1
+		>= ft_strlen(data->p_info->arr[*i]))
 		return (1);
-	if (!data->arr[*i - 1][*j] || data->arr[*i - 1][*j] ==' ') // сверху над строкой
+	if (!data->p_info->arr[*i - 1][*j] || data->p_info->arr[*i - 1][*j] ==' ')
+		// сверху над
+		// строкой
 		return (1);
-	if (!data->arr[*i + 1][*j] || data->arr[*i + 1][*j] == ' ') // снизу над строкой
+	if (!data->p_info->arr[*i + 1][*j] || data->p_info->arr[*i + 1][*j] == ' ')
+		// снизу над
+		// строкой
 		return (1);
-	if (!data->arr[*i - 1][*j - 1] || data->arr[*i - 1][*j - 1] == ' ') // угловой слева вверх
+	if (!data->p_info->arr[*i - 1][*j - 1] || data->p_info->arr[*i - 1][*j - 1]
+	== ' ') //
+		// угловой слева вверх
 		return (1);
-	if (!data->arr[*i - 1][*j + 1] || data->arr[*i - 1][*j + 1] == ' ') // угловой справа вверх
+	if (!data->p_info->arr[*i - 1][*j + 1] || data->p_info->arr[*i - 1][*j +
+	1]
+	== ' ') //
+		// угловой справа вверх
 		return (1);
-	if (!data->arr[*i + 1][*j - 1] || data->arr[*i + 1][*j - 1] == ' ') // угловой слева низ
+	if (!data->p_info->arr[*i + 1][*j - 1] || data->p_info->arr[*i + 1][*j - 1]
+	== ' ') //
+		// угловой слева низ
 		return (1);
-	if (!data->arr[*i + 1][*j + 1] || data->arr[*i + 1][*j + 1] == ' ') // угловой справа низ
+	if (!data->p_info->arr[*i + 1][*j + 1] || data->p_info->arr[*i + 1][*j + 1]
+	== ' ') //
+		// угловой справа низ
 		return (1);
 	return (0);
 }
@@ -110,12 +127,12 @@ int	ft_check_map_border(t_data *data)
 
 	i = 0;
 	j = 0;
-	while (data->arr[i])
+	while (data->p_info->arr[i])
 	{
 		j = 0;
-		while (data->arr[i][j])
+		while (data->p_info->arr[i][j])
 		{
-			if (data->arr[i][j] == '0')
+			if (data->p_info->arr[i][j] == '0')
 			{
 				if (ft_check_map_border_inside(data, &i, &j))
 					return (1);

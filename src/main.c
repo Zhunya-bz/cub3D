@@ -17,8 +17,8 @@ void	print_draw(t_data *data)
 	int	i;
 
 	i = 0;
-	printf("width %d\n", data->width);
-	printf("height %d\n", data->height);
+	printf("width %d\n", data->p_info->width);
+	printf("height %d\n", data->p_info->height);
 	printf("F_red %d\n", data->p_draw->F_red);
 	printf("F_green %d\n", data->p_draw->F_green);
 	printf("F_blue %d\n", data->p_draw->F_blue);
@@ -27,8 +27,8 @@ void	print_draw(t_data *data)
 	printf("C_blue %d\n", data->p_draw->C_blue);
 	printf("path_E %s\n", data->p_draw->path_E);
 	printf("y=%f\n", data->p_coord->y);
-	while (i < data->height)
-		printf("%s\n", data->arr[i++]);
+	while (i < data->p_info->height)
+		printf("%s\n", data->p_info->arr[i++]);
 }
 
 int	main(int argc, char **argv)
@@ -38,6 +38,7 @@ int	main(int argc, char **argv)
 	data.p_draw = malloc(sizeof(t_draw));
 	data.p_coord = malloc(sizeof(t_coord));
 	data.p_addres = malloc(sizeof(t_addres));
+	data.p_info = malloc(sizeof(t_info));
 	if (!data.p_draw || !data.p_addres || !data.p_coord)
 	{
 		ft_putendl_fd("Error malloc", 1);

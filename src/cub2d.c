@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub2d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <>                                        +#+  +:+       +#+        */
+/*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/11/19 11:49:07 by                  ###   ########.fr       */
+/*   Updated: 2021/11/22 17:51:00 by saltmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ float ft_draw_vector2(t_data *data, int color, float k) // k - поворот н
 
 	i = 1;
 	c = 0;
-	data->pov = k + M_PI/3 + M_PI_2/3; // куда смотрит камера
+	data->p_info->pov = k + M_PI/3 + M_PI_2/3; // куда смотрит камера
 	while (i <= 2)
 	{
 		data->p_coord->x_ray = (float)(data->p_coord->x + SCALE/2);
 		data->p_coord->y_ray = (float)(data->p_coord->y + SCALE/2);
 		c = 0.1;
-		while (data->p_coord->x_ray < data->width * SCALE &&
+		while (data->p_coord->x_ray < data->p_info->width * SCALE &&
 		data->p_coord->x_ray > SCALE && data->p_coord->y_ray > SCALE &&
-		data->p_coord->y_ray < data->height * SCALE)
+		data->p_coord->y_ray < data->p_info->height * SCALE)
 		{
 			//			printf("%f\n", c);
-			if (data->arr[(int)(data->p_coord->y_ray/SCALE)][(int)
+			if (data->p_info->arr[(int)(data->p_coord->y_ray/SCALE)][(int)
 			(data->p_coord->x_ray/SCALE)] == '1')
 				break ;
 			data->p_coord->x_ray += c * cos(k + i * M_PI/3);// угол между лучами
@@ -84,10 +84,10 @@ float ft_draw_vector2(t_data *data, int color, float k) // k - поворот н
 //				(data->p_coord->x_ray - data->p_coord->x - SCALE/2) +
 //				(data->p_coord->y_ray - data->p_coord->y - SCALE/2) *
 //				(data->p_coord->y_ray - data->p_coord->y - SCALE/2));
-		float H = data->screen_height/c;
+		float H = data->p_info->screen_height/c;
 		printf("c=%f 1/c=%f H=%f\n", c, 1/c, H);
-		ceil = data->screen_height/2 - data->screen_height*c;
-		floor = data->screen_height - ceil;
+		ceil = data->p_info->screen_height/2 - data->p_info->screen_height*c;
+		floor = data->p_info->screen_height - ceil;
 		printf("ceil=%f floor=%f\n", ceil, floor);
 		i += 0.1;
 	}
@@ -111,7 +111,7 @@ float	ft_draw_vector(t_data *data, int color, float k) // k - поворот н�
 
 	i = 1;
 //	c = 0;
-	data->pov = k + M_PI/3 + M_PI_2/3; // куда смотрит камера
+	data->p_info->pov = k + M_PI/3 + M_PI_2/3; // куда смотрит камера
 //	printf("%f %f\n", data->pov, k);
 	int g = 0;
 	while (i <= 2)
@@ -124,7 +124,7 @@ float	ft_draw_vector(t_data *data, int color, float k) // k - поворот н�
 //		while (data->p_coord->x_ray < data->width * SCALE &&
 //		data->p_coord->x_ray > SCALE && data->p_coord->y_ray > SCALE &&
 //		data->p_coord->y_ray < data->height * SCALE)
-		while (data->arr[(int)(data->p_coord->y_ray/SCALE)][(int)
+		while (data->p_info->arr[(int)(data->p_coord->y_ray/SCALE)][(int)
 			(data->p_coord->x_ray/SCALE)] != '1')
 		{
 //			printf("%f\n", c);
@@ -162,8 +162,8 @@ float	ft_draw_vector(t_data *data, int color, float k) // k - поворот н�
 //		printf("H=%f\n", H);
 //		float dis = (float)(data->screen_height)/dist2;
 //		printf("dis: %f\n", dis);
-		ceil = (float)data->screen_height/2 - (float)(data->screen_height)/dist2;
-		floor = data->screen_height - ceil;
+		ceil = (float)data->p_info->screen_height/2 - (float)(data->p_info->screen_height)/dist2;
+		floor = data->p_info->screen_height - ceil;
 //		printf("ceil=%f floor=%f\n", ceil, floor);
 //		if (g > 15)
 //			exit(0);
@@ -178,7 +178,7 @@ float	ft_draw_vector(t_data *data, int color, float k) // k - поворот н�
 				my_pixel_put(data, x, y++, 0x000000);
 			while (y >= round(ceil) && y <= round(floor))
 				my_pixel_put(data, x, y++, 0xc9e9ff);
-			while (y > round(floor) && y < data->screen_height)
+			while (y > round(floor) && y < data->p_info->screen_height)
 				my_pixel_put(data, x, y++, 0x000000);
 		x++;
 		i += 0.00078125; //количество лучей
@@ -198,7 +198,7 @@ float ft_black_vector(t_data *data, int color, float k)
 	while (i * M_PI/3 < M_PI/50 + M_PI/3)
 	{
 		printf("%f\n", i);
-		while ((data->arr[(int)(data->p_coord->y_ray/SCALE)][(int)
+		while ((data->p_info->arr[(int)(data->p_coord->y_ray/SCALE)][(int)
 		(data->p_coord->x_ray/SCALE)] != '1'))
 		{
 			data->p_coord->x_ray += cos(k + i * M_PI/3);// угол между лучами
@@ -221,7 +221,7 @@ void ft_draw_line_up(t_data *data, int start_i, int start_j, int color)
 	while (k > 0) // луч вверх
 	{
 		l = start_j;
-		if (data->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
+		if (data->p_info->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
 			return ;
 		my_pixel_put(data, l, k, color);
 		k--;
@@ -234,10 +234,10 @@ void ft_draw_line_down(t_data *data, int start_i, int start_j, int color)
 	int l;
 
 	k = start_i;
-	while (k < data->height * SCALE) // луч вниз
+	while (k < data->p_info->height * SCALE) // луч вниз
 	{
 		l = start_j;
-		if (data->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
+		if (data->p_info->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
 			return ;
 		my_pixel_put(data, l, k, color);
 		k++;
@@ -253,7 +253,7 @@ void ft_draw_line_left(t_data *data, int start_i, int start_j, int color)
 	while (l > 0) // луч влево
 	{
 		k = start_i;
-		if (data->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
+		if (data->p_info->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
 			return ;
 		my_pixel_put(data, l, k, color);
 		l--;
@@ -266,10 +266,10 @@ void ft_draw_line_right(t_data *data, int start_i, int start_j, int color)
 	int l;
 
 	l = start_j;
-	while (l < data->width * SCALE) // луч вправо
+	while (l < data->p_info->width * SCALE) // луч вправо
 	{
 		k = start_i;
-		if (data->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
+		if (data->p_info->arr[(int)(k/SCALE)][(int)(l/SCALE)] == '1')
 			return ;
 		my_pixel_put(data, l, k, color);
 		l++;
@@ -278,63 +278,63 @@ void ft_draw_line_right(t_data *data, int start_i, int start_j, int color)
 
 void ft_draw_ray(t_data *data, int color)
 {
-	if (data->direction == 'N')
-		data->k = ft_draw_vector(data, color, data->k * 2);
+	if (data->p_info->direction == 'N')
+		data->p_info->k = ft_draw_vector(data, color, data->p_info->k * 2);
 //		ft_draw_line_up(data, data->p_coord->y + SCALE/2, data->p_coord->x +
 //													   SCALE/2, color);
-	if (data->direction == 'S')
-		data->k = ft_draw_vector(data, color, data->k * 0);
+	if (data->p_info->direction == 'S')
+		data->p_info->k = ft_draw_vector(data, color, data->p_info->k * 0);
 //		ft_draw_line_down(data, data->p_coord->y + SCALE/2, data->p_coord->x +
 //		SCALE/2, color);
-	if (data->direction == 'W')
-		data->k = ft_draw_vector(data, color, data->k);
+	if (data->p_info->direction == 'W')
+		data->p_info->k = ft_draw_vector(data, color, data->p_info->k);
 //		ft_draw_line_left(data, data->p_coord->y + SCALE/2, data->p_coord->x +
 //		SCALE/2, color);
-	if (data->direction == 'E')
-		data->k = ft_draw_vector(data, color, 3 * data->k);
+	if (data->p_info->direction == 'E')
+		data->p_info->k = ft_draw_vector(data, color, 3 * data->p_info->k);
 }
 
 void move_player_up(t_data *data)
 {
-	if (data->arr[(int)((data->p_coord->y + SCALE/2 - 2)/SCALE)][(int)
+	if (data->p_info->arr[(int)((data->p_coord->y + SCALE/2 - 2)/SCALE)][(int)
 		((data->p_coord->x + SCALE/2)/SCALE)] == '1')
 		return ;
-	data->k = ft_draw_vector(data, 0x000000, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x000000, data->p_info->k);
 //	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 //							data->p_addres->img, 0, 0);
 //	mlx_clear_window(data->p_draw->mlx, data->p_draw->win);
 	data->p_coord->y -= 2;
-	data->k = ft_draw_vector(data, 0x00FF00, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x00FF00, data->p_info->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
 
 void move_player_down(t_data *data)
 {
-	if (data->arr[(int)((data->p_coord->y + SCALE/2 + 2)/SCALE)][(int)
+	if (data->p_info->arr[(int)((data->p_coord->y + SCALE/2 + 2)/SCALE)][(int)
 	((data->p_coord->x + SCALE/2)/SCALE)] == '1')
 		return ;
-	data->k = ft_draw_vector(data, 0x000000, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x000000, data->p_info->k);
 //	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 //							data->p_addres->img, 0, 0);
 //mlx_clear_window(data->p_draw->mlx, data->p_draw->win);
 	data->p_coord->y+=2;
-	data->k = ft_draw_vector(data, 0x00FF00, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x00FF00, data->p_info->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
 
 void move_player_right(t_data *data)
 {
-	if (data->arr[(int)((data->p_coord->y + SCALE/2)/SCALE)][(int)
+	if (data->p_info->arr[(int)((data->p_coord->y + SCALE/2)/SCALE)][(int)
 	((data->p_coord->x + SCALE/2 + 2)/SCALE)] == '1')
 		return ;
-	data->k = ft_draw_vector(data, 0x000000, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x000000, data->p_info->k);
 //	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 //							data->p_addres->img, 0, 0);
 //	mlx_clear_window(data->p_draw->mlx, data->p_draw->win);
 	data->p_coord->x += 2;
-	data->k = ft_draw_vector(data, 0x00FF00, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x00FF00, data->p_info->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 
@@ -342,37 +342,37 @@ void move_player_right(t_data *data)
 
 void move_player_left(t_data *data)
 {
-	if (data->arr[(int)((data->p_coord->y + SCALE/2)/SCALE)][(int)
+	if (data->p_info->arr[(int)((data->p_coord->y + SCALE/2)/SCALE)][(int)
 	((data->p_coord->x + SCALE/2 - 2)/SCALE)] == '1')
 		return ;
-	data->k = ft_draw_vector(data, 0x000000, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x000000, data->p_info->k);
 //	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 //							data->p_addres->img, 0, 0);
 //mlx_clear_window(data->p_draw->mlx, data->p_draw->win);
 	data->p_coord->x-=2;
-	data->k = ft_draw_vector(data, 0x000FF00, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x000FF00, data->p_info->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
 
 void ft_arrow_right(t_data *data)
 {
-	data->k = ft_draw_vector(data, 0x000000, data->k);
+	data->p_info->k = ft_draw_vector(data, 0x000000, data->p_info->k);
 //	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 //							data->p_addres->img, 0, 0);
-	data->k = data->k + M_PI/50;
-	data->k = ft_draw_vector(data, 0xFFFF00, data->k);
+	data->p_info->k = data->p_info->k + M_PI/50;
+	data->p_info->k = ft_draw_vector(data, 0xFFFF00, data->p_info->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
 
 void ft_arrow_left(t_data *data)
 {
-	ft_draw_vector(data, 0x000000, data->k);
+	ft_draw_vector(data, 0x000000, data->p_info->k);
 //	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 //							data->p_addres->img, 0, 0);
-	data->k = data->k - M_PI/50;
-	ft_draw_vector(data, 0xFFFF00, data->k);
+	data->p_info->k = data->p_info->k - M_PI/50;
+	ft_draw_vector(data, 0xFFFF00, data->p_info->k);
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
 }
@@ -412,12 +412,12 @@ void ft_draw_map(t_data *data)
 
 	i = 0;
 //	ft_draw_rec(data, data->p_coord->y, data->p_coord->x,0xFF0000);
-	while (i < data->height)
+	while (i < data->p_info->height)
 	{
 		j = 0;
-		while(data->arr[i][j])
+		while(data->p_info->arr[i][j])
 		{
-			if (data->arr[i][j] == '1')
+			if (data->p_info->arr[i][j] == '1')
 				ft_draw_rec(data, i * SCALE, j * SCALE, 0xFFFFFF);
 			j++;
 		}
@@ -454,10 +454,11 @@ void textures(t_data *data)
 void ft_draw_cub2d(t_data *data)
 {
 	data->p_draw->mlx = mlx_init();//инициализируем mlx
-	data->p_draw->win = mlx_new_window(data->p_draw->mlx, data->screen_width,
-									   data->screen_height, "CUB3D!");//создаем окно
-	data->p_addres->img = mlx_new_image(data->p_draw->mlx, data->screen_width,
-										data->screen_height);//создаем изображение с теми же параметрами
+	data->p_draw->win = mlx_new_window(data->p_draw->mlx, data->p_info->screen_width,
+									   data->p_info->screen_height, "CUB3D!");//создаем окно
+	data->p_addres->img = mlx_new_image(data->p_draw->mlx,
+									 data->p_info->screen_width,
+										data->p_info->screen_height);//создаем изображение с теми же параметрами
 	data->p_addres->addr = mlx_get_data_addr(data->p_addres->img,
 											 &data->p_addres->bits_per_pixel,
 											 &data->p_addres->line_length,
@@ -474,7 +475,7 @@ void ft_draw_cub2d(t_data *data)
 										data->p_draw->C_blue);//преобразуем цвет неба в HEX
 	ft_draw_map(data); // рисовка самой 2д карты
 
-	data->k = M_PI_2; // угол на который нужно повернуть лучи на начальном этапе
+	data->p_info->k = M_PI_2; // угол на который нужно повернуть лучи на начальном этапе
 	ft_draw_ray(data, 0x00FF00);
 
 	mlx_hook(data->p_draw->win, 2, 0, key_hook, data);//нажатие на клавиши wasd
