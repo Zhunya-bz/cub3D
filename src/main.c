@@ -56,10 +56,9 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("Error", 1);
 			return (1);
 		}
-		//		print_draw(&data);
 		ft_draw_cub2d(&data);
 	}
 	free_all(&data);
-	//	while (1);
+	while (1);
 	return (0);
 }

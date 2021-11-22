@@ -79,13 +79,12 @@ int		ft_parser_help(t_data *data, char *line);
 int		ft_color_ceiling(char *line, t_draw *draw);
 int		ft_color_floor(char *line, t_draw *draw);
 int		ft_check_map_char(t_data *data);
-int		ft_parse_map_second(char **argv, t_data *data);
 void	ft_map_count(char *line, t_data *data);
 int		ft_check_map_border(t_data *data);
+int		ft_check_cub(char **argv);
 void	free_all(t_data *data);
 void	ft_draw_cub2d(t_data *data);
 void	print_draw(t_data *data);
-int		ft_parser_direction(t_data *data, char *line);
 
 void	ft_draw_map(t_data *data);
 

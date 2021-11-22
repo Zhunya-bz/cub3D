@@ -453,7 +453,7 @@ void textures(t_data *data)
 
 void ft_draw_cub2d(t_data *data)
 {
-	data->p_draw->mlx = mlx_init();//инициализируем mlx
+	data->p_draw->mlx = mlx_init();
 	data->p_draw->win = mlx_new_window(data->p_draw->mlx, data->p_info->screen_width,
 									   data->p_info->screen_height, "CUB3D!");//создаем окно
 	data->p_addres->img = mlx_new_image(data->p_draw->mlx,
