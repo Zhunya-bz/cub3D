@@ -26,9 +26,12 @@ int	ft_check_map_char(t_data *data)
 			if (data->arr[i][j] == 'W' || data->arr[i][j] == 'E' ||
 			data->arr[i][j] == 'S' || data->arr[i][j] == 'N')
 			{
+				if (data->flag == 1)
+					return (1);
 				data->direction = data->arr[i][j];
 				data->p_coord->x = j;
 				data->p_coord->y = i;
+				data->flag = 1;
 			}
 			else if (!(data->arr[i][j] == '1' || data->arr[i][j] == '0' ||
 			data->arr[i][j] == ' '))

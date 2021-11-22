@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 	{
 		if (ft_parser(argv, &data))
 		{
-			ft_putendl_fd("Error2", 1);
+			ft_putendl_fd("Error", 1);
 			return (1);
 		}
 		//		print_draw(&data);

@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/11/01 16:15:56 by                  ###   ########.fr       */
+/*   Updated: 2021/11/09 13:01:52 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	init_draw(t_data *data)
 {
 	data->width = 0;
 	data->height = 0;
-	data->screen_height = 680;
-	data->screen_width = 1024;
+	data->screen_height = 720;
+	data->screen_width = 1280;
 	data->direction = '\0';
 	data->p_coord->x = -1;
 	data->p_coord->y = -1;
@@ -31,8 +31,9 @@ static void	init_draw(t_data *data)
 	data->p_draw->path_W = NULL;
 	data->p_draw->path_N = NULL;
 	data->p_draw->path_S = NULL;
-	data->fl = 0;
-	data->fl_par = 0;
+	data->dist = 0;
+	data->pov = 0;
+	data->flag = 0;
 }
 
 void	free_all(t_data *data)
@@ -84,6 +85,7 @@ static int	ft_parse_gnl(t_data *data, char **argv, char *line)
 	ft_free_close(line, fd);
 	return (0);
 }
+
 int ft_check_cub(char **argv)
 {
 	int		i;
@@ -116,7 +118,7 @@ int	ft_parser(char **argv, t_data *data)
 		|| ft_check_map_border(data) || data->direction == '\0'
 		|| data->p_coord->y == -1 || data->p_coord->x == -1)
 	{
-		print_draw(data);
+		print_draw(data); // delete
 		free_all(data);
 		return (1);
 	}

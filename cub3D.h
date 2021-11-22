@@ -58,16 +58,20 @@ typedef struct s_data
 	t_draw		*p_draw;
 	t_coord		*p_coord;
 	t_addres	*p_addres;
+//	float 		i;
+	int 		flag;
 	char		**arr;
 	int 		screen_width;
 	int 		screen_height;
 	int			width;
 	int			height;
 	char		direction;
-	int			fl;
-	int 		fl_par;
 	float 		k;
+	float		pov; // point of view-точка зрения
+	float 		dist;
 }	t_data;
+
+/* parser */
 
 int		get_next_line(int fd, char **line);
 int		ft_parser(char **argv, t_data *data);
@@ -82,5 +86,7 @@ void	free_all(t_data *data);
 void	ft_draw_cub2d(t_data *data);
 void	print_draw(t_data *data);
 int		ft_parser_direction(t_data *data, char *line);
+
+void	ft_draw_map(t_data *data);
 
 #endif //CUB3D_H
