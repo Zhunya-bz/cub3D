@@ -43,10 +43,23 @@ typedef struct	s_addres {
 
 typedef struct s_coord
 {
-	float 	x;
-	float 	y;
-	float	x_ray;
-	float	y_ray;
+	double	x;
+	double	y;
+	double	vecX;
+	double	vecY;
+	double planeX; // =0
+	double planeY; // =0.66
+	double	ray_vecX;
+	double	ray_vecY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int 	mapX;
+	int 	mapY;
+	int		stepX;
+	int		stepY;
 }	t_coord;
 
 typedef struct s_info
@@ -86,6 +99,8 @@ void	free_all(t_data *data);
 void	ft_draw_cub2d(t_data *data);
 void	print_draw(t_data *data);
 
+void	my_pixel_put(t_data *data, int x, int y, int color);
 void	ft_draw_map(t_data *data);
+int		ft_draw_3d(t_data *data);
 
 #endif //CUB3D_H

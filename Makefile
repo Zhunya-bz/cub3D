@@ -1,6 +1,6 @@
 SRCS	=	main.c get_next_line.c \
 			parser.c parse_map.c parse_before_map.c parser_utils.c\
-			cub2d.c
+			cub2d.c draw_3d.c
 
 SRCS_DIR = src/
 
@@ -16,7 +16,7 @@ MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 LOGDATE		=	$(shell date)
 
-CC = gcc
+CC = gcc -g
 RM = rm -f
 
 CFLAGS = -Wall -Wextra -Werror

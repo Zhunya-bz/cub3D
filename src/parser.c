@@ -21,6 +21,15 @@ static void	init_draw(t_data *data)
 	data->p_info->direction = '\0';
 	data->p_coord->x = -1;
 	data->p_coord->y = -1;
+	data->p_coord->planeX = 0;
+	data->p_coord->planeY = 0.66;
+	data->p_coord->deltaDistX = 0;
+	data->p_coord->deltaDistY = 0;
+	data->p_coord->sideDistX = 0;
+	data->p_coord->sideDistY = 0;
+	data->p_coord->perpWallDist = 0;
+	data->p_coord->ray_vecX = 0;
+	data->p_coord->ray_vecY = 0;
 	data->p_draw->F_red = -1;
 	data->p_draw->F_green = -1;
 	data->p_draw->F_blue = -1;
