@@ -102,5 +102,6 @@ void	print_draw(t_data *data);
 void	my_pixel_put(t_data *data, int x, int y, int color);
 void	ft_draw_map(t_data *data);
 int		ft_draw_3d(t_data *data);
+int ft_draw(t_data *data);
 
 #endif //CUB3D_H

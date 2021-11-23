@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   newmain.c                                          :+:      :+:    :+:   */
+/*   draw_3d.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:09 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/23 17:05:18 by                  ###   ########.fr       */
+/*   Updated: 2021/11/23 20:44:25 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void ft_init_vectors(t_data *data, int x)
 	data->p_coord->ray_vecX = data->p_coord->vecX + data->p_coord->planeX *
 			cameraX;
 	data->p_coord->ray_vecY = data->p_coord->vecY +
-			data->p_coord->planeY *
-			cameraX;
+			data->p_coord->planeY * cameraX;
 	data->p_coord->mapX = (int) (data->p_coord->x);
 	data->p_coord->mapY = (int) (data->p_coord->y);
 	if (data->p_coord->ray_vecX == 0)
@@ -44,7 +43,8 @@ void ft_init_dist(t_data *data)
 		data->p_coord->stepX = -1;
 		data->p_coord->sideDistX = (data->p_coord->x - data->p_coord->mapX) *
 								   data->p_coord->deltaDistX;
-	} else
+	}
+	else
 	{
 		data->p_coord->stepX = 1;
 		data->p_coord->sideDistX = (data->p_coord->mapX + 1.0 - data->p_coord->x) * data->p_coord->deltaDistX;
@@ -108,7 +108,7 @@ int ft_draw_3d(t_data *data)
 //		printf("%f %f\n", data->p_coord->deltaDistX, data->p_coord->deltaDistY);
 		ft_init_dist(data);
 		ft_dist_wall(data);
-//		printf("%f \n", data->p_coord->perpWallDist);
+		printf("%f \n", data->p_coord->perpWallDist);
 //		exit(1);
 
 		lineHeight = (int) (data->p_info->screen_height /
@@ -119,7 +119,7 @@ int ft_draw_3d(t_data *data)
 		drawEnd = lineHeight / 2 + data->p_info->screen_height / 2;
 		if (drawEnd >= data->p_info->screen_height)
 			drawEnd = data->p_info->screen_height - 1;
-		printf("%d %d\n", drawStart, drawEnd);
+//		printf("%d %d\n", drawStart, drawEnd);
 		int color = 0x0000FF;
 //		switch (map[mapX][mapY])
 //		{

@@ -6,7 +6,7 @@
 /*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/11/23 14:33:04 by                  ###   ########.fr       */
+/*   Updated: 2021/11/23 21:18:38 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -461,11 +461,15 @@ void init_colors_vectors(t_data *data)
 	{
 		data->p_coord->vecX = 0;
 		data->p_coord->vecY = -1;
+		data->p_coord->planeX = 0.66;
+		data->p_coord->planeY = 0;
 	}
 	else if (data->p_info->direction == 'S')
 	{
 		data->p_coord->vecX = 0;
 		data->p_coord->vecY = 1;
+		data->p_coord->planeX = 0.66;
+		data->p_coord->planeY = 0;
 	}
 	else if (data->p_info->direction == 'W')
 	{
@@ -495,6 +499,7 @@ void ft_draw_cub2d(t_data *data)
 											 &data->p_addres->endian);//получаем адресс изображения
 	textures(data);
 	init_colors_vectors(data);
+//	printf("%f %f\n", data->p_coord->vecX, data->p_coord->vecY);
 //	data->p_coord->x *= SCALE;//берем масшабируем координаты
 //	data->p_coord->y *= SCALE;//берем масшабируем координаты
 //	data->p_coord->x_ray = (float)(data->p_coord->x + SCALE/2);
@@ -502,6 +507,7 @@ void ft_draw_cub2d(t_data *data)
 //	print_draw(data);//печать хранимого в data
 
 	ft_draw_3d(data); //рисовка в 3D
+//	ft_draw(data);
 	//	ft_draw_map(data); // рисовка самой 2д карты
 
 //	data->p_info->k = M_PI_2; // угол на который нужно повернуть лучи на начальном этапе
