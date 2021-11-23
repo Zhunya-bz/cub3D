@@ -21,6 +21,8 @@ static void	init_draw(t_data *data)
 	data->p_info->direction = '\0';
 	data->p_coord->x = -1;
 	data->p_coord->y = -1;
+	data->p_coord->vecX = 0;
+	data->p_coord->vecY = 0;
 	data->p_coord->planeX = 0;
 	data->p_coord->planeY = 0.66;
 	data->p_coord->deltaDistX = 0;
@@ -40,8 +42,6 @@ static void	init_draw(t_data *data)
 	data->p_draw->path_W = NULL;
 	data->p_draw->path_N = NULL;
 	data->p_draw->path_S = NULL;
-	data->p_info->dist = 0;
-	data->p_info->pov = 0;
 	data->p_info->flag = 0;
 }
 

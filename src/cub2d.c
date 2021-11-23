@@ -6,7 +6,7 @@
 /*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/11/23 21:18:38 by                  ###   ########.fr       */
+/*   Updated: 2021/11/23 21:19:35 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -459,28 +459,20 @@ void init_colors_vectors(t_data *data)
 										data->p_draw->C_green,data->p_draw->C_blue);//преобразуем цвет неба в HEX
 	if (data->p_info->direction == 'N')
 	{
-		data->p_coord->vecX = 0;
 		data->p_coord->vecY = -1;
 		data->p_coord->planeX = 0.66;
 		data->p_coord->planeY = 0;
 	}
 	else if (data->p_info->direction == 'S')
 	{
-		data->p_coord->vecX = 0;
 		data->p_coord->vecY = 1;
 		data->p_coord->planeX = 0.66;
 		data->p_coord->planeY = 0;
 	}
 	else if (data->p_info->direction == 'W')
-	{
 		data->p_coord->vecX = 1;
-		data->p_coord->vecY = 0;
-	}
 	else if (data->p_info->direction == 'E')
-	{
 		data->p_coord->vecX = -1;
-		data->p_coord->vecY = 0;
-	}
 }
 
 void ft_draw_cub2d(t_data *data)
