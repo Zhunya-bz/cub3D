@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/11/24 11:42:07 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 11:47:59 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static void	init_draw(t_data *data)
 	data->p_coord->y = -1;
 	data->p_coord->vecX = 0;
 	data->p_coord->vecY = 0;
-	data->p_coord->planeX = 0;
-	data->p_coord->planeY = 0.66;
+	data->p_coord->angle = 0.66;
 	data->p_coord->deltaDistX = 0;
 	data->p_coord->deltaDistY = 0;
 	data->p_coord->sideDistX = 0;

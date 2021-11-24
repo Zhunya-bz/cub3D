@@ -6,7 +6,7 @@
 /*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:09 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/24 12:27:01 by saltmer          ###   ########.fr       */
+/*   Updated: 2021/11/24 14:01:29 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void ft_init_vectors(t_data *data, int x)
 	double cameraX;
 
 	cameraX = 2 * x / (double)data->p_info->screen_width - 1; //x-coordinate
-	// in camera// space
+	// in camera// space (-1, 1)
 	data->p_coord->ray_vecX = data->p_coord->vecX + data->p_coord->planeX *
 			cameraX;
 	data->p_coord->ray_vecY = data->p_coord->vecY +
@@ -86,78 +86,51 @@ void ft_dist_wall(t_data *data)
 		if (data->p_info->arr[data->p_coord->mapY][data->p_coord->mapX] == '1')
 			hit = 1;
 	}
-	if (data->p_coord->sideDistX == data->p_coord->deltaDistX)
-		data->p_coord->perpWallDist = 1;
-	else if (side == 0)
+//	if (data->p_coord->sideDistX == data->p_coord->deltaDistX)
+//		data->p_coord->perpWallDist = 1;
+	if (side == 0)
 		data->p_coord->perpWallDist = (data->p_coord->sideDistX - data->p_coord->deltaDistX);
 	else
 		data->p_coord->perpWallDist = (data->p_coord->sideDistY - data->p_coord->deltaDistY);
 }
 
-int ft_draw_3d(t_data *data)
+void perpWall(t_data *data)
 {
 	int lineHeight;
-	int	drawStart;
-	int drawEnd;
+
+	lineHeight = (int) (data->p_info->screen_height /
+						data->p_coord->perpWallDist);
+	data->p_coord->drawStart = -lineHeight / 2 + data->p_info->screen_height/ 2;
+	if (data->p_coord->drawStart < 0)
+		data->p_coord->drawStart = 0;
+	data->p_coord->drawEnd = lineHeight / 2 + data->p_info->screen_height / 2;
+	if (data->p_coord->drawEnd >= data->p_info->screen_height)
+		data->p_coord->drawEnd = data->p_info->screen_height - 1;
+}
+
+int ft_draw_3d(t_data *data)
+{
 	int x;
 	int i;
 
 	x = 0;
-	i = 0;
 	while (x < data->p_info->screen_width)
 	{
 		ft_init_vectors(data, x);
-//		printf("%f %f\n", data->p_coord->deltaDistX, data->p_coord->deltaDistY);
 		ft_init_dist(data);
 		ft_dist_wall(data);
-//		printf("%f \n", data->p_coord->perpWallDist);
-//		exit(1);
-
-		lineHeight = (int) (data->p_info->screen_height /
-				data->p_coord->perpWallDist);
-		drawStart = -lineHeight / 2 + data->p_info->screen_height/ 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		drawEnd = lineHeight / 2 + data->p_info->screen_height / 2;
-		if (drawEnd >= data->p_info->screen_height)
-			drawEnd = data->p_info->screen_height - 1;
-//		printf("%d %d\n", drawStart, drawEnd);
-		int color = 0x483D8B;
-//		switch (map[mapX][mapY])
-//		{
-//			case 0:
-//				color = 255;
-//				break; //red
-//			case 1:
-//				color = 388;
-//				break; //blue
-//			default:
-//				color = 678;
-//				break; //white
-//		}
-//		printf("%d\n", drawEnd);
-		// if(side == 1) {color = color / 2;}
-//		// draw_line(x, drawStart, drawEnd, color);
-//	   printf("ds=%d\n", drawStart);
-//       printf("de=%d\n", drawEnd);
-//      int i = 0;
+		perpWall(data);
 		i = 0;
-		while (i < drawStart)
-			my_pixel_put(data, x, i++, 0xCCCCFF);
+		while (i < data->p_coord->drawStart) // ceil
+			my_pixel_put(data, x, i++, data->p_draw->C_color);
 		i = 0;
-		while (drawStart + i < drawEnd)
-		{
-			my_pixel_put(data, x, drawStart + i++, color);
-		//        i++;
-		}
-//		printf("%d\n", i);
-		while (drawEnd < data->p_info->screen_height)
-			my_pixel_put(data, x, drawEnd++, 0xFADFAD);
+		while (data->p_coord->drawStart + i < data->p_coord->drawEnd) //wall
+			my_pixel_put(data, x, data->p_coord->drawStart + i++, 0x6A5ACD);
+		while (data->p_coord->drawEnd < data->p_info->screen_height) //floor
+			my_pixel_put(data, x, data->p_coord->drawEnd++, data->p_draw->F_color);
 		x++;
 	}
-
 	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win,
 							data->p_addres->img, 0, 0);
-//	exit(1);
 	return (0);
 }

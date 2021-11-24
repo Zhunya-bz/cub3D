@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:30:04 by                   #+#    #+#             */
-/*   Updated: 2021/11/23 13:04:23 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 14:02:19 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("Error", 1);
 			return (1);
 		}
-		ft_draw_cub2d(&data);
+		ft_draw_general(&data);
 	}
 	free_all(&data);
 	while (1);

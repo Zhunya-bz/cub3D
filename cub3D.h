@@ -12,6 +12,8 @@
 # include <fcntl.h>
 # include <stddef.h>
 
+# define SCALE 8.0
+
 typedef struct s_draw {
 	void	*mlx;
 	void	*win;
@@ -47,6 +49,7 @@ typedef struct s_coord
 	double	y;
 	double	vecX;
 	double	vecY;
+	double	angle;
 	double	planeX; // =0
 	double	planeY; // =0.66
 	double	ray_vecX;
@@ -62,6 +65,8 @@ typedef struct s_coord
 	int		stepY;
 	double	moveSpeed;
 	double	rotSpeed;
+	int 	drawStart;
+	int 	drawEnd;
 }	t_coord;
 
 typedef struct s_info
@@ -98,12 +103,21 @@ void	ft_map_count(char *line, t_data *data);
 int		ft_check_map_border(t_data *data);
 int		ft_check_cub(char **argv);
 void	free_all(t_data *data);
-void	ft_draw_cub2d(t_data *data);
-void	print_draw(t_data *data);
+
+/* draw.c */
+void	ft_draw_general(t_data *data);
+
+/* map_cub2d.c */
 
 void	my_pixel_put(t_data *data, int x, int y, int color);
 void	ft_draw_map(t_data *data);
+int		create_trgb(int t, int r, int g, int b);
+
+/* move.c */
+int		key_press(int keycode, t_data *data);
+int		close_win(t_data *data);
+
 int		ft_draw_3d(t_data *data);
-int ft_draw(t_data *data);
+
 
 #endif //CUB3D_H
