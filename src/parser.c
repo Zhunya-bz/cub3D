@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/11/22 18:41:19 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 11:42:07 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	init_draw(t_data *data)
 	data->p_coord->perpWallDist = 0;
 	data->p_coord->ray_vecX = 0;
 	data->p_coord->ray_vecY = 0;
+	data->p_coord->moveSpeed = 0.2;
+	data->p_coord->rotSpeed = M_PI/32;
 	data->p_draw->F_red = -1;
 	data->p_draw->F_green = -1;
 	data->p_draw->F_blue = -1;

@@ -6,7 +6,7 @@
 /*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:09 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/23 20:44:25 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 12:27:01 by saltmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void ft_dist_wall(t_data *data)
 		if (data->p_info->arr[data->p_coord->mapY][data->p_coord->mapX] == '1')
 			hit = 1;
 	}
-	if (side == 0)
+	if (data->p_coord->sideDistX == data->p_coord->deltaDistX)
+		data->p_coord->perpWallDist = 1;
+	else if (side == 0)
 		data->p_coord->perpWallDist = (data->p_coord->sideDistX - data->p_coord->deltaDistX);
 	else
 		data->p_coord->perpWallDist = (data->p_coord->sideDistY - data->p_coord->deltaDistY);
@@ -108,7 +110,7 @@ int ft_draw_3d(t_data *data)
 //		printf("%f %f\n", data->p_coord->deltaDistX, data->p_coord->deltaDistY);
 		ft_init_dist(data);
 		ft_dist_wall(data);
-		printf("%f \n", data->p_coord->perpWallDist);
+//		printf("%f \n", data->p_coord->perpWallDist);
 //		exit(1);
 
 		lineHeight = (int) (data->p_info->screen_height /
@@ -120,7 +122,7 @@ int ft_draw_3d(t_data *data)
 		if (drawEnd >= data->p_info->screen_height)
 			drawEnd = data->p_info->screen_height - 1;
 //		printf("%d %d\n", drawStart, drawEnd);
-		int color = 0x0000FF;
+		int color = 0x483D8B;
 //		switch (map[mapX][mapY])
 //		{
 //			case 0:
@@ -140,11 +142,17 @@ int ft_draw_3d(t_data *data)
 //       printf("de=%d\n", drawEnd);
 //      int i = 0;
 		i = 0;
+		while (i < drawStart)
+			my_pixel_put(data, x, i++, 0xCCCCFF);
+		i = 0;
 		while (drawStart + i < drawEnd)
 		{
 			my_pixel_put(data, x, drawStart + i++, color);
 		//        i++;
 		}
+//		printf("%d\n", i);
+		while (drawEnd < data->p_info->screen_height)
+			my_pixel_put(data, x, drawEnd++, 0xFADFAD);
 		x++;
 	}
 

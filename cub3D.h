@@ -47,8 +47,8 @@ typedef struct s_coord
 	double	y;
 	double	vecX;
 	double	vecY;
-	double planeX; // =0
-	double planeY; // =0.66
+	double	planeX; // =0
+	double	planeY; // =0.66
 	double	ray_vecX;
 	double	ray_vecY;
 	double	sideDistX;
@@ -60,6 +60,8 @@ typedef struct s_coord
 	int 	mapY;
 	int		stepX;
 	int		stepY;
+	double	moveSpeed;
+	double	rotSpeed;
 }	t_coord;
 
 typedef struct s_info
@@ -71,9 +73,9 @@ typedef struct s_info
 	int			width;
 	int			height;
 	char		direction;
-	float 		k;
-	float		pov; // point of view-точка зрения
-	float 		dist;
+//	float 		k;
+//	float		pov; // point of view-точка зрения
+//	float 		dist;
 }	t_info;
 
 typedef struct s_data
