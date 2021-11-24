@@ -78,9 +78,6 @@ typedef struct s_info
 	int			width;
 	int			height;
 	char		direction;
-//	float 		k;
-//	float		pov; // point of view-точка зрения
-//	float 		dist;
 }	t_info;
 
 typedef struct s_data
