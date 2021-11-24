@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_3d.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:09 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/24 14:01:29 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 14:51:14 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void ft_init_dist(t_data *data)
 void ft_dist_wall(t_data *data)
 {
 	int hit;
-	int	side;
 
 	hit = 0;
 	while (hit == 0)
@@ -75,23 +74,23 @@ void ft_dist_wall(t_data *data)
 		{
 			data->p_coord->sideDistX += data->p_coord->deltaDistX;
 			data->p_coord->mapX += data->p_coord->stepX;
-			side = 0;
+			data->p_coord->side = 0;
 		}
 		else
 		{
 			data->p_coord->sideDistY  += data->p_coord->deltaDistY;
 			data->p_coord->mapY += data->p_coord->stepY;
-			side = 1;
+			data->p_coord->side = 1;
 		}
 		if (data->p_info->arr[data->p_coord->mapY][data->p_coord->mapX] == '1')
 			hit = 1;
 	}
-//	if (data->p_coord->sideDistX == data->p_coord->deltaDistX)
-//		data->p_coord->perpWallDist = 1;
-	if (side == 0)
+	if (data->p_coord->side == 0)
 		data->p_coord->perpWallDist = (data->p_coord->sideDistX - data->p_coord->deltaDistX);
 	else
 		data->p_coord->perpWallDist = (data->p_coord->sideDistY - data->p_coord->deltaDistY);
+	if (data->p_coord->perpWallDist == 0)
+		data->p_coord->perpWallDist = 1;
 }
 
 void perpWall(t_data *data)
@@ -121,11 +120,14 @@ int ft_draw_3d(t_data *data)
 		ft_dist_wall(data);
 		perpWall(data);
 		i = 0;
+		int color = 0x6A5ACD;
+		if (data->p_coord->side == 1)
+			color = color / 2;
 		while (i < data->p_coord->drawStart) // ceil
 			my_pixel_put(data, x, i++, data->p_draw->C_color);
 		i = 0;
 		while (data->p_coord->drawStart + i < data->p_coord->drawEnd) //wall
-			my_pixel_put(data, x, data->p_coord->drawStart + i++, 0x6A5ACD);
+			my_pixel_put(data, x, data->p_coord->drawStart + i++, color);
 		while (data->p_coord->drawEnd < data->p_info->screen_height) //floor
 			my_pixel_put(data, x, data->p_coord->drawEnd++, data->p_draw->F_color);
 		x++;

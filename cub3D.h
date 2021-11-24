@@ -67,6 +67,7 @@ typedef struct s_coord
 	double	rotSpeed;
 	int 	drawStart;
 	int 	drawEnd;
+	int		side;
 }	t_coord;
 
 typedef struct s_info

@@ -72,10 +72,8 @@ void ft_draw_general(t_data *data)
 											 &data->p_addres->endian);//получаем адресс изображения
 	textures(data);
 	init_colors_vectors(data);
-
 	ft_draw_3d(data); //рисовка в 3D
 	ft_draw_map(data); // рисовка самой 2д карты
-
 	mlx_hook(data->p_draw->win, 2, 0, key_press, data);
 	mlx_hook(data->p_draw->win, 17, 0, close_win, data);// нажатие на крестик окна
 	mlx_loop(data->p_draw->mlx);
