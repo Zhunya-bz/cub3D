@@ -8,6 +8,11 @@ static void textures(t_data *data)
 	data->p_draw->img_S = mlx_xpm_file_to_image(data->p_draw->mlx, data->p_draw->path_S, &size, &size);
 	data->p_draw->img_W = mlx_xpm_file_to_image(data->p_draw->mlx, data->p_draw->path_W, &size, &size);
 	data->p_draw->img_E = mlx_xpm_file_to_image(data->p_draw->mlx, data->p_draw->path_E, &size, &size);
+	data->p_draw->tex[0]->ptr = mlx_get_data_addr(data->p_draw->img_N, 0, 0, 0);
+	data->p_draw->tex[1]->ptr = mlx_get_data_addr(data->p_draw->img_S, 0, 0, 0);
+	data->p_draw->tex[2]->ptr = mlx_get_data_addr(data->p_draw->img_W, 0, 0, 0);
+	data->p_draw->tex[3]->ptr = mlx_get_data_addr(data->p_draw->img_E, 0, 0, 0);
+	
 	if (!data->p_draw->img_N || !data->p_draw->img_S || !data->p_draw->img_W || !data->p_draw->img_E)
 	{
 		printf("Error\n");
