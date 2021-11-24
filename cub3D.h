@@ -89,6 +89,7 @@ typedef struct s_data
 	t_coord		*p_coord;
 	t_addres	*p_addres;
 	t_info		*p_info;
+	int			side;
 }	t_data;
 
 /* parser */

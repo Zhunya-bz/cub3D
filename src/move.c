@@ -72,5 +72,23 @@ int key_press(int keycode, t_data *data)
 		ft_draw_3d(data);
 		ft_draw_map(data); // рисовка самой 2д карты
 	}
+	if (keycode == 2) // D
+	{
+		if (data->p_info->arr[(int)(data->p_coord->y)][(int)(data->p_coord->x + data->p_coord->planeX * data->p_coord->moveSpeed)]!= '1')
+			data->p_coord->x += data->p_coord->planeX * data->p_coord->moveSpeed + 0.00001;
+		if (data->p_info->arr[(int)(data->p_coord->y + data->p_coord->planeY * data->p_coord->moveSpeed)][(int)(data->p_coord->x)] != '1')
+			data->p_coord->y += data->p_coord->planeY * data->p_coord->moveSpeed + 0.00001;
+		ft_draw_3d(data);
+		ft_draw_map(data); // рисовка самой 2д карты
+	}
+	if (keycode == 0) //A
+	{
+		if (data->p_info->arr[(int)(data->p_coord->y)][(int)(data->p_coord->x - data->p_coord->planeX * data->p_coord->moveSpeed)]!= '1')
+			data->p_coord->x -= data->p_coord->planeX * data->p_coord->moveSpeed + 0.00001;
+		if (data->p_info->arr[(int)(data->p_coord->y - data->p_coord->planeY * data->p_coord->moveSpeed)][(int)(data->p_coord->x)] != '1')
+			data->p_coord->y -= data->p_coord->planeY * data->p_coord->moveSpeed + 0.00001;
+		ft_draw_3d(data);
+		ft_draw_map(data); // рисовка самой 2д карты
+	}
 	return (0);
 }
