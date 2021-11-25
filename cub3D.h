@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <saltmer>                                 +#+  +:+       +#+        */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:06:18 by                   #+#    #+#             */
-/*   Updated: 2021/11/25 16:16:26 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 17:03:01 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,17 @@ int		close_win(t_data *data);
 
 /* textures.c */
 void	textures(t_data *data);
+int		init_textures(t_data *data);
+void	set_texture(t_data *data);
+void	ft_draw_texture(t_data *data, int x, int y);
+int		ft_draw_3d(t_data *data);
 
 /* draw_3d.c */
 int		ft_draw_3d(t_data *data);
+void	ft_draw_general(t_data *data);
+void	ft_init_vectors(t_data *data, int x);
+void	ft_init_dist(t_data *data);
+void	perpwall(t_data *data);
+void	ft_dist_wall(t_data *data);
 
 #endif //CUB3D_H

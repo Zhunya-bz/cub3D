@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 11:06:30 by saltmer           #+#    #+#             */
-/*   Updated: 2021/04/20 13:02:57 by saltmer          ###   ########.fr       */
+/*   Updated: 2021/11/25 16:54:40 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*ft_memmove(void *dest, const void *src, size_t len)
 			while ((int)len - 1 >= 0)
 			{
 				((unsigned char *)dest)[len - 1]
-					 = ((unsigned char *)src)[len - 1];
+					= ((unsigned char *)src)[len - 1];
 				len--;
 			}
 		}
