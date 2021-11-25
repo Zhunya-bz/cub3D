@@ -59,6 +59,6 @@ int	main(int argc, char **argv)
 		ft_draw_general(&data);
 	}
 	free_all(&data);
-	while (1);
+//	while (1);
 	return (0);
 }
