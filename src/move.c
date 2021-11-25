@@ -6,7 +6,7 @@
 /*   By:  <saltmer>                                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:17:46 by                   #+#    #+#             */
-/*   Updated: 2021/11/25 13:20:18 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 13:31:19 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ static void	arrow_press(t_data *data, double speed)
 	old_plane_x = data->p_coord->planeX;
 	data->p_coord->planeX = data->p_coord->planeX * cos
 		(speed) - data->p_coord->planeY * sin(speed);
-	data->p_coord->planeY = old_plane_x * sin(speed) +
-		data->p_coord->planeY * cos(speed);
+	data->p_coord->planeY = old_plane_x * sin(speed)
+		+ data->p_coord->planeY * cos(speed);
 	ft_draw_3d(data);
 	ft_draw_map(data);
 }
 
-static void	press_WASD(t_data *data, double vectorX, double vectorY)
+static void	press_wasd(t_data *data, double vectorX, double vectorY)
 {
 	if (data->p_info->arr[(int)(data->p_coord->y)][(int)
 			(data->p_coord->x + vectorX * data->p_coord->moveSpeed)] != '1')
 		data->p_coord->x += vectorX * data->p_coord->moveSpeed;
-	if (data->p_info->arr[(int)(data->p_coord->y + vectorY *
-												   data->p_coord->moveSpeed)][(int)(data->p_coord->x)] != '1')
+	if (data->p_info->arr[(int)(data->p_coord->y + vectorY
+			* data->p_coord->moveSpeed)][(int)(data->p_coord->x)] != '1')
 		data->p_coord->y += vectorY * data->p_coord->moveSpeed;
 	ft_draw_3d(data);
 	ft_draw_map(data);
@@ -59,16 +59,16 @@ int	key_press(int keycode, t_data *data)
 		close_win(data);
 	}
 	if (keycode == 13) // W
-		press_WASD(data, data->p_coord->vecX, data->p_coord->vecY);
+		press_wasd(data, data->p_coord->vecX, data->p_coord->vecY);
 	if (keycode == 1) // S
-		press_WASD(data, -data->p_coord->vecX, -data->p_coord->vecY);
+		press_wasd(data, -data->p_coord->vecX, -data->p_coord->vecY);
 	if (keycode == 123) // left
 		arrow_press(data, -data->p_coord->rotSpeed);
 	if (keycode == 124) // right
 		arrow_press(data, data->p_coord->rotSpeed);
 	if (keycode == 2) // D
-		press_WASD(data, data->p_coord->planeX, data->p_coord->planeY);
+		press_wasd(data, data->p_coord->planeX, data->p_coord->planeY);
 	if (keycode == 0) // A
-		press_WASD(data, -data->p_coord->planeX, -data->p_coord->planeY);
+		press_wasd(data, -data->p_coord->planeX, -data->p_coord->planeY);
 	return (0);
 }
