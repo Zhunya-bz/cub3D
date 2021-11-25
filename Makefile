@@ -1,6 +1,6 @@
 SRCS	=	main.c get_next_line.c \
 			parser.c parse_map.c parse_before_map.c parser_utils.c\
-			map_cub2d.c draw_3d.c draw.c move.c textures.c textures2.c
+			minimap.c draw_3d.c draw.c move.c textures.c textures2.c
 
 SRCS_DIR = src/
 
