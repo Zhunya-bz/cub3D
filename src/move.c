@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By:  <saltmer>                                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 13:17:46 by                   #+#    #+#             */
+/*   Updated: 2021/11/25 13:20:18 by                  ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
 int	close_win(t_data *data)
@@ -8,27 +20,26 @@ int	close_win(t_data *data)
 	return (0);
 }
 
-static void arrow_press(t_data *data, double speed)
+static void	arrow_press(t_data *data, double speed)
 {
-	double oldDirX;
+	double	old_dir_x;
+	double	old_plane_x;
 
-	oldDirX = data->p_coord->vecX;
-	data->p_coord->vecX = data->p_coord->vecX * cos(speed) - data->p_coord->vecY * sin
-			(speed);
-	data->p_coord->vecY = oldDirX * sin(speed) + data->p_coord->vecY *cos
-			(speed);
-	double oldPlaneX;
-
-	oldPlaneX = data->p_coord->planeX;
+	old_dir_x = data->p_coord->vecX;
+	data->p_coord->vecX = data->p_coord->vecX * cos(speed) - data->p_coord->vecY
+		* sin(speed);
+	data->p_coord->vecY = old_dir_x * sin(speed) + data->p_coord->vecY
+		* cos(speed);
+	old_plane_x = data->p_coord->planeX;
 	data->p_coord->planeX = data->p_coord->planeX * cos
-			(speed) - data->p_coord->planeY * sin(speed);
-	data->p_coord->planeY = oldPlaneX * sin(speed) +
-							data->p_coord->planeY * cos(speed);
+		(speed) - data->p_coord->planeY * sin(speed);
+	data->p_coord->planeY = old_plane_x * sin(speed) +
+		data->p_coord->planeY * cos(speed);
 	ft_draw_3d(data);
-	ft_draw_map(data); // рисовка самой 2д карты
+	ft_draw_map(data);
 }
 
-static void press_WASD(t_data *data, double vectorX, double vectorY)
+static void	press_WASD(t_data *data, double vectorX, double vectorY)
 {
 	if (data->p_info->arr[(int)(data->p_coord->y)][(int)
 			(data->p_coord->x + vectorX * data->p_coord->moveSpeed)] != '1')
@@ -37,10 +48,10 @@ static void press_WASD(t_data *data, double vectorX, double vectorY)
 												   data->p_coord->moveSpeed)][(int)(data->p_coord->x)] != '1')
 		data->p_coord->y += vectorY * data->p_coord->moveSpeed;
 	ft_draw_3d(data);
-	ft_draw_map(data); // рисовка самой 2д карты
+	ft_draw_map(data);
 }
 
-int key_press(int keycode, t_data *data)
+int	key_press(int keycode, t_data *data)
 {
 	if (keycode == 53)
 	{

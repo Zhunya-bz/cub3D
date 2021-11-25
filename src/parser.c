@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/11/24 18:13:56 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/25 13:09:17 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,10 @@ static void	init_draw(t_data *data)
 	data->p_coord->vecX = 0;
 	data->p_coord->vecY = 0;
 	data->p_coord->angle = 0.66;
-//	data->p_coord->deltaDistX = 0;
-//	data->p_coord->deltaDistY = 0;
-//	data->p_coord->sideDistX = 0;
-//	data->p_coord->sideDistY = 0;
-//	data->p_coord->perpWallDist = 0;
 	data->p_coord->ray_vecX = 0;
 	data->p_coord->ray_vecY = 0;
 	data->p_coord->moveSpeed = 0.2;
-	data->p_coord->rotSpeed = M_PI/32;
+	data->p_coord->rotSpeed = M_PI / 32;
 	data->p_draw->F_red = -1;
 	data->p_draw->F_green = -1;
 	data->p_draw->F_blue = -1;
@@ -119,9 +114,6 @@ int	ft_parser(char **argv, t_data *data)
 	if (ft_parse_map_second(argv, data) || ft_check_map_char(data)
 		|| ft_check_map_border(data) || data->p_info->direction == '\0'
 		|| data->p_coord->y == -1 || data->p_coord->x == -1)
-	{
-		free_all(data);
 		return (1);
-	}
 	return (0);
 }

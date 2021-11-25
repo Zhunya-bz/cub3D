@@ -19,14 +19,20 @@ void	free_all(t_data *data)
 	i = 0;
 	while (i < data->p_info->height)
 	{
-		free(data->p_info->arr[i]);
+		if (data->p_info->arr[i])
+			free(data->p_info->arr[i]);
 		i++;
 	}
-	free(data->p_info->arr);
-	free(data->p_draw->path_E);
-	free(data->p_draw->path_W);
-	free(data->p_draw->path_S);
-	free(data->p_draw->path_N);
+	if (data->p_info->arr)
+		free(data->p_info->arr);
+	if (data->p_draw->path_E)
+		free(data->p_draw->path_E);
+	if (data->p_draw->path_W)
+		free(data->p_draw->path_W);
+	if (data->p_draw->path_S)
+		free(data->p_draw->path_S);
+	if (data->p_draw->path_N)
+		free(data->p_draw->path_N);
 	free(data->p_draw);
 	free(data->p_info);
 	free(data->p_addres);
