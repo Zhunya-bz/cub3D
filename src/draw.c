@@ -21,22 +21,22 @@ void	ft_error(t_data *data)
 
 static void	init_direction_vector(t_data *data, double x, double y)
 {
-	data->p_coord->vecX = x;
-	data->p_coord->vecY = y;
+	data->p_coord->vec_x = x;
+	data->p_coord->vec_y = y;
 }
 
 static void	init_direction_camera(t_data *data, double x, double y)
 {
-	data->p_coord->planeX = x;
-	data->p_coord->planeY = y;
+	data->p_coord->plane_x = x;
+	data->p_coord->plane_y = y;
 }
 
 static void	init_colors_vectors(t_data *data)
 {
-	data->p_draw->F_color = create_trgb(0, data->p_draw->F_red,
-			data->p_draw->F_green, data->p_draw->F_blue);
-	data->p_draw->C_color = create_trgb(0, data->p_draw->C_red,
-			data->p_draw->C_green, data->p_draw->C_blue);
+	data->p_draw->f_color = create_trgb(0, data->p_draw->f_red,
+			data->p_draw->f_green, data->p_draw->f_blue);
+	data->p_draw->c_color = create_trgb(0, data->p_draw->c_red,
+			data->p_draw->c_green, data->p_draw->c_blue);
 	if (data->p_info->direction == 'N')
 	{
 		init_direction_vector(data, 0, -1);
