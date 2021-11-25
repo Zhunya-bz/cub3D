@@ -1,7 +1,7 @@
-NO ./img/home.xpm
-SO ./img/dog-2.xpm
-WE ./img/grass.xpm
-EA ./img/home.xpm
+NO ./img/greystone.xpm
+SO ./img/purplestone.xpm
+WE ./img/redbrick.xpm
+EA ./img/wood.xpm
 
 C     1,    100,   111
 F  254,25,0

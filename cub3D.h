@@ -13,6 +13,28 @@
 # include <stddef.h>
 
 # define SCALE 8.0
+# define TEXTURES 4
+
+typedef struct	s_tex
+{
+	int		*ptr;
+	int		texdir;
+	int		start;
+	int		end;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	double	wallx;
+	double	step;
+	int		line_height;
+	int		texx;
+	int		texy;
+	double  tex_pos;
+	int		**tex_size;
+	
+}				t_tex;
 
 typedef struct s_draw {
 	void	*mlx;
@@ -33,6 +55,7 @@ typedef struct s_draw {
 	void	*img_E;
 	int 	F_color;
 	int 	C_color;
+	t_tex	*tex[TEXTURES];
 }				t_draw;
 
 typedef struct	s_addres {
@@ -88,6 +111,8 @@ typedef struct s_data
 	t_addres	*p_addres;
 	t_info		*p_info;
 }	t_data;
+
+
 
 /* parser */
 
