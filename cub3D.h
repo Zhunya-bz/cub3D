@@ -17,7 +17,7 @@
 
 typedef struct	s_tex
 {
-	void	*ptr;
+	int		*ptr;
 	int		texdir;
 	int		start;
 	int		end;
@@ -30,7 +30,10 @@ typedef struct	s_tex
 	double	step;
 	int		line_height;
 	int		texx;
+	int		texy;
 	double  tex_pos;
+	int		**tex_size;
+	
 }				t_tex;
 
 typedef struct s_draw {

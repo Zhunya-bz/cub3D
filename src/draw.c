@@ -3,16 +3,38 @@
 static void textures(t_data *data)
 {
 	int size;
+	int i;
 
+	i = -1;
+
+	while (++i < TEXTURES)
+	{
+		data->p_draw->tex[i] = NULL;
+		data->p_draw->tex[i] = malloc(sizeof(t_tex));
+		data->p_draw->tex[i]->height = 64;
+		data->p_draw->tex[i]->width = 64;
+		data->p_draw->tex[i]->bpp = 4;
+		data->p_draw->tex[i]->size_line = 64;
+		data->p_draw->tex[i]->endian = 0;
+	}
+	
 	data->p_draw->img_N = mlx_xpm_file_to_image(data->p_draw->mlx, data->p_draw->path_N, &size, &size);
 	data->p_draw->img_S = mlx_xpm_file_to_image(data->p_draw->mlx, data->p_draw->path_S, &size, &size);
 	data->p_draw->img_W = mlx_xpm_file_to_image(data->p_draw->mlx, data->p_draw->path_W, &size, &size);
 	data->p_draw->img_E = mlx_xpm_file_to_image(data->p_draw->mlx, data->p_draw->path_E, &size, &size);
-	data->p_draw->tex[0]->ptr = mlx_get_data_addr(data->p_draw->img_N, 0, 0, 0);
-	data->p_draw->tex[1]->ptr = mlx_get_data_addr(data->p_draw->img_S, 0, 0, 0);
-	data->p_draw->tex[2]->ptr = mlx_get_data_addr(data->p_draw->img_W, 0, 0, 0);
-	data->p_draw->tex[3]->ptr = mlx_get_data_addr(data->p_draw->img_E, 0, 0, 0);
+	data->p_draw->tex[0]->ptr = (int *)mlx_get_data_addr(data->p_draw->img_N, &data->p_draw->tex[0]->bpp, &data->p_draw->tex[0]->size_line, &data->p_draw->tex[0]->endian);
+	data->p_draw->tex[1]->ptr = (int *)mlx_get_data_addr(data->p_draw->img_S, &data->p_draw->tex[0]->bpp, &data->p_draw->tex[0]->size_line, &data->p_draw->tex[0]->endian);
+	data->p_draw->tex[2]->ptr = (int *)mlx_get_data_addr(data->p_draw->img_W, &data->p_draw->tex[0]->bpp, &data->p_draw->tex[0]->size_line, &data->p_draw->tex[0]->endian);
+	data->p_draw->tex[3]->ptr = (int *)mlx_get_data_addr(data->p_draw->img_E, &data->p_draw->tex[0]->bpp, &data->p_draw->tex[0]->size_line, &data->p_draw->tex[0]->endian);
 	
+	// for (int y = 0; y < 64; y++)
+	// {
+	// 	for (int x = 0; x < 64; x++)
+	// 	{
+			// data->p_draw->tex[0]->texsize[]
+	// 	}
+	// }
+	// mlx_destroy_image(info->mlx, img->img);
 	if (!data->p_draw->img_N || !data->p_draw->img_S || !data->p_draw->img_W || !data->p_draw->img_E)
 	{
 		printf("Error\n");

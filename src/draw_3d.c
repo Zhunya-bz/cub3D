@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:09 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/24 19:03:37 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/25 12:06:30 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,28 +108,43 @@ void perpWall(t_data *data)
 }
 void ft_draw_texture(t_data *data, int x, int y)
 {
+	int color;
+	int texdir;
 	y = data->p_coord->drawStart - 1;
 	if (data->p_coord->side == 0 && data->p_coord->ray_vecX < 0)
-		data->p_draw->tex[0]->texdir = 0;
+		texdir = 0;
 	if (data->p_coord->side == 0 && data->p_coord->ray_vecX >= 0)
-		data->p_draw->tex[0]->texdir = 1;
+		texdir = 1;
 	if (data->p_coord->side == 1 && data->p_coord->ray_vecX < 0)
-		data->p_draw->tex[0]->texdir = 2;
+		texdir = 2;
 	if (data->p_coord->side == 1 && data->p_coord->ray_vecX >= 0)
-		data->p_draw->tex[0]->texdir = 3;
+		texdir = 3;
 	if (data->p_coord->side == 0)
 		data->p_draw->tex[0]->wallx = data->p_coord->y + data->p_coord->perpWallDist * data->p_coord->ray_vecY;
 	else
 		data->p_draw->tex[0]->wallx = data->p_coord->x + data->p_coord->perpWallDist * data->p_coord->ray_vecX;
+		
 	data->p_draw->tex[0]->wallx -= floor(data->p_draw->tex[0]->wallx);
 	data->p_draw->tex[0]->step = 1.0 * data->p_draw->tex[0]->height / data->p_draw->tex[0]->line_height;
 	data->p_draw->tex[0]->texx = (int)data->p_draw->tex[0]->wallx * (double)64;
-	if (data->p_coord->side == 0 && data->p_coord->ray_vecX > 0)
-		data->p_draw->tex[0]->texx = 64 - data->p_draw->tex[0]->texx - 1;
-	if (data->p_coord->side == 1 && data->p_coord->ray_vecY < 0)
-		data->p_draw->tex[0]->texx = 64 - data->p_draw->tex[0]->texx - 1;
-	data->p_draw->tex[0]->tex_pos = (data->p_coord->drawStart - data->p_coord->y / 2 + data->p_draw->tex[0]->line_height / 2) * data->p_draw->tex[0]->step;
 	
+	if (data->p_coord->side == 0 && data->p_coord->ray_vecX > 0)
+		data->p_draw->tex[0]->texx = data->p_draw->tex[0]->height - data->p_draw->tex[0]->texx - 1;
+	if (data->p_coord->side == 1 && data->p_coord->ray_vecY < 0)
+		data->p_draw->tex[0]->texx = data->p_draw->tex[0]->height - data->p_draw->tex[0]->texx - 1;
+	data->p_draw->tex[0]->tex_pos = (data->p_coord->drawStart - data->p_info->screen_height / 2 + data->p_draw->tex[0]->line_height / 2) * data->p_draw->tex[0]->step;
+	while(++y < data->p_coord->drawEnd)
+	{
+		data->p_draw->tex[0]->texy = (int)data->p_draw->tex[0]->tex_pos & 63;
+		data->p_draw->tex[0]->tex_pos += data->p_draw->tex[0]->step;
+		// if (y < data->p_info->screen_height && x < data->p_info->screen_width)
+		// {
+			color = (int)data->p_draw->tex[texdir]->ptr[data->p_draw->tex[0]->height * data->p_draw->tex[0]->texy + data->p_draw->tex[0]->texx];
+			if (data->p_coord->side == 1)
+				color = color / 2;
+			my_pixel_put(data, x, y, color);
+		// }
+	}
 	
 }
 
