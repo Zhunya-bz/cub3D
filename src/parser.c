@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/11/25 13:09:17 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 16:09:54 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ static void	init_draw(t_data *data)
 	data->p_coord->ray_vecY = 0;
 	data->p_coord->moveSpeed = 0.2;
 	data->p_coord->rotSpeed = M_PI / 32;
-	data->p_draw->F_red = -1;
-	data->p_draw->F_green = -1;
-	data->p_draw->F_blue = -1;
-	data->p_draw->C_red = -1;
-	data->p_draw->C_blue = -1;
-	data->p_draw->C_green = -1;
-	data->p_draw->path_E = NULL;
-	data->p_draw->path_W = NULL;
-	data->p_draw->path_N = NULL;
-	data->p_draw->path_S = NULL;
+	data->p_draw->f_red = -1;
+	data->p_draw->f_green = -1;
+	data->p_draw->f_blue = -1;
+	data->p_draw->c_red = -1;
+	data->p_draw->c_blue = -1;
+	data->p_draw->c_green = -1;
+	data->p_draw->path_e = NULL;
+	data->p_draw->path_w = NULL;
+	data->p_draw->path_n = NULL;
+	data->p_draw->path_s = NULL;
 	data->p_info->flag = 0;
 }
 

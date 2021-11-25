@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:30:04 by                   #+#    #+#             */
-/*   Updated: 2021/11/25 13:12:58 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 15:47:00 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ int	main(int argc, char **argv)
 		if (init_struct(&data))
 			return (1);
 		if (ft_parser(argv, &data))
-		{
-			ft_putendl_fd("Error", 1);
-			free_all(&data);
-			return (1);
-		}
+			ft_error(&data);
 		ft_draw_general(&data);
 	}
 	free_all(&data);
