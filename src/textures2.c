@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:53:14 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/25 16:53:19 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/25 21:38:06 by saltmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,5 @@ int	ft_draw_3d(t_data *data)
 		data->p_draw->f_color);
 		x++;
 	}
-	mlx_put_image_to_window(data->p_draw->mlx, data->p_draw->win, \
-	data->p_addres->img, 0, 0);
 	return (0);
 }
