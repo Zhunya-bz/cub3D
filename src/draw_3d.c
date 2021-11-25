@@ -6,7 +6,7 @@
 /*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:09 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/25 16:27:23 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/25 16:29:31 by erichell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,11 @@ int	init_textures(t_data *data)
 		(int)data->p_coord->y)
 			texdir = 0;
 	}
-	return(texdir);
+	return (texdir);
 }
-void	ft_draw_texture(t_data *data, int x, int y)
-{
-	int	color;
-	int	texdir;
 
-	y = data->p_coord->draw_start - 1;
+void	set_texture(t_data *data)
+{
 	if (data->p_coord->side == 0)
 		data->p_draw->texture->wallx = data->p_coord->y + \
 	data->p_coord->perp_wall_dist * data->p_coord->ray_vec_y;
@@ -160,8 +157,16 @@ void	ft_draw_texture(t_data *data, int x, int y)
 	data->p_draw->texture->tex_pos = (data->p_coord->draw_start - \
 	data->p_info->screen_height / 2 + data->p_draw->texture->line_height \
 	/ 2) * data->p_draw->texture->step;
+}
+
+void	ft_draw_texture(t_data *data, int x, int y)
+{
+	int	color;
+	int	texdir;
+
+	y = data->p_coord->draw_start - 1;
+	set_texture(data);
 	texdir = init_textures(data);
-	
 	while (++y < data->p_coord->draw_end)
 	{
 		data->p_draw->texture->texy = (int)data->p_draw->texture->tex_pos \
