@@ -118,9 +118,6 @@ typedef struct s_data
 	t_info		*p_info;
 }	t_data;
 
-
-
-
 /* parser */
 
 int		get_next_line(int fd, char **line);
