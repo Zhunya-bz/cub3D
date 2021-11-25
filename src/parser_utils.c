@@ -25,14 +25,14 @@ void	free_all(t_data *data)
 	}
 	if (data->p_info->arr)
 		free(data->p_info->arr);
-	if (data->p_draw->path_E)
-		free(data->p_draw->path_E);
-	if (data->p_draw->path_W)
-		free(data->p_draw->path_W);
-	if (data->p_draw->path_S)
-		free(data->p_draw->path_S);
-	if (data->p_draw->path_N)
-		free(data->p_draw->path_N);
+	if (data->p_draw->path_e)
+		free(data->p_draw->path_e);
+	if (data->p_draw->path_w)
+		free(data->p_draw->path_w);
+	if (data->p_draw->path_s)
+		free(data->p_draw->path_s);
+	if (data->p_draw->path_n)
+		free(data->p_draw->path_n);
 	free(data->p_draw);
 	free(data->p_info);
 	free(data->p_addres);
@@ -80,10 +80,10 @@ int	ft_color_floor(char *line, t_draw *draw)
 	int	i;
 
 	i = 0;
-	draw->F_red = ft_help_color(line, &i);
-	draw->F_green = ft_help_color(line, &i);
-	draw->F_blue = ft_help_color(line, &i);
-	if (draw->F_red < 0 || draw->F_green < 0 || draw->F_blue < 0)
+	draw->f_red = ft_help_color(line, &i);
+	draw->f_green = ft_help_color(line, &i);
+	draw->f_blue = ft_help_color(line, &i);
+	if (draw->f_red < 0 || draw->f_green < 0 || draw->f_blue < 0)
 		return (1);
 	return (0);
 }
@@ -93,10 +93,10 @@ int	ft_color_ceiling(char *line, t_draw *draw)
 	int	i;
 
 	i = 0;
-	draw->C_red = ft_help_color(line, &i);
-	draw->C_green = ft_help_color(line, &i);
-	draw->C_blue = ft_help_color(line, &i);
-	if (draw->C_red < 0 || draw->C_green < 0 || draw->C_blue < 0)
+	draw->c_red = ft_help_color(line, &i);
+	draw->c_green = ft_help_color(line, &i);
+	draw->c_blue = ft_help_color(line, &i);
+	if (draw->c_red < 0 || draw->c_green < 0 || draw->c_blue < 0)
 		return (1);
 	return (0);
 }

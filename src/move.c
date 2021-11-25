@@ -58,17 +58,17 @@ int	key_press(int keycode, t_data *data)
 		ft_putstr_fd("You're exit!\n", 1);
 		close_win(data);
 	}
-	if (keycode == 13) // W
+	if (keycode == 13)
 		press_wasd(data, data->p_coord->vecX, data->p_coord->vecY);
-	if (keycode == 1) // S
+	if (keycode == 1)
 		press_wasd(data, -data->p_coord->vecX, -data->p_coord->vecY);
-	if (keycode == 123) // left
+	if (keycode == 123)
 		arrow_press(data, -data->p_coord->rotSpeed);
-	if (keycode == 124) // right
+	if (keycode == 124)
 		arrow_press(data, data->p_coord->rotSpeed);
-	if (keycode == 2) // D
+	if (keycode == 2)
 		press_wasd(data, data->p_coord->planeX, data->p_coord->planeY);
-	if (keycode == 0) // A
+	if (keycode == 0)
 		press_wasd(data, -data->p_coord->planeX, -data->p_coord->planeY);
 	return (0);
 }
