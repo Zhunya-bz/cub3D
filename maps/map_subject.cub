@@ -1,10 +1,10 @@
-NO ./img/greystone.xpm
-SO ./img/purplestone.xpm
+NO ./img/bluestone.xpm
+SO ./img/colorstone.xpm
 WE ./img/redbrick.xpm
-EA ./img/wood.xpm
+EA ./img/greystone.xpm
 
-F 250, 231, 181
-C 204, 204, 255
+F 71, 82, 89
+C 41, 96, 127
 
         1111111111111111111111111
         1000000000110000000000001
