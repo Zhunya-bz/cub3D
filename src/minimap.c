@@ -6,7 +6,7 @@
 /*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 12:27:14 by                   #+#    #+#             */
-/*   Updated: 2021/11/25 17:49:15 by saltmer          ###   ########.fr       */
+/*   Updated: 2021/11/26 10:44:27 by saltmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	ft_draw_map_helper(t_data *data, int i, int j)
 			* SCALE, j * SCALE, 0x241a1a);
 	else if (data->p_info->arr[i][j] == '0'
 		|| data->p_info->arr[i][j] == data->p_info->direction)
-			ft_draw_rec(data, data->p_info->screen_height
+		ft_draw_rec(data, data->p_info->screen_height
 			- data->p_info->height * SCALE + i
 			* SCALE, j * SCALE, 0xc2c0c0);
 }
