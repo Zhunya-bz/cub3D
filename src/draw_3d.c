@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_3d.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erichell <erichell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:09 by erichell          #+#    #+#             */
-/*   Updated: 2021/11/25 16:52:48 by erichell         ###   ########.fr       */
+/*   Updated: 2021/11/26 11:06:10 by saltmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	ft_init_vectors(t_data *data, int x)
 	data->p_coord->map_x = (int)(data->p_coord->x);
 	data->p_coord->map_y = (int)(data->p_coord->y);
 	if (data->p_coord->ray_vec_x == 0)
-			data->p_coord->delta_dist_x = 1e30;
+		data->p_coord->delta_dist_x = 1e30;
 	else
 		data->p_coord->delta_dist_x = fabs(1 / data->p_coord->ray_vec_x);
 	if (data->p_coord->ray_vec_y == 0)
-			data->p_coord->delta_dist_y = 1e30;
+		data->p_coord->delta_dist_y = 1e30;
 	else
 		data->p_coord->delta_dist_y = fabs(1 / data->p_coord->ray_vec_y);
 }
