@@ -6,7 +6,7 @@
 /*   By: saltmer <saltmer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:21:16 by                   #+#    #+#             */
-/*   Updated: 2021/11/25 21:35:14 by saltmer          ###   ########.fr       */
+/*   Updated: 2021/11/26 11:46:48 by saltmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_parser(char **argv, t_data *data)
 	char	*line;
 
 	line = NULL;
+	data->p_info->arr = NULL;
 	init_draw(data);
 	if (ft_check_cub(argv) || ft_parse_gnl(data, argv, line))
 		return (1);

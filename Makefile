@@ -14,7 +14,7 @@ LIB			=	./libft/libft.a
 
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-CC = gcc
+CC = gcc -g
 
 RM = rm -f
 
