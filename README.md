@@ -26,7 +26,7 @@ make a dynamic view inside a maze, in which you’ll have to find your way
 </ul>
 
 Пример карты:
-<img src="./map.png">
+<img src="./map_sub.png">
 
 Программа отображает изображение в окне и соблюдает следующие правила:
 
